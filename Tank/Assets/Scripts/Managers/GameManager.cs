@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int m_NumRoundsToWin = 5;
-    public float m_StartDelay = 3f;
-    public float m_EndDelay = 3f;
+    public RoundsDefinition roundsDef;
+
     public CameraControl m_CameraControl;
     public Text m_MessageText;
     public GameObject m_TankPrefab;
@@ -28,8 +27,8 @@ public class GameManager : MonoBehaviour
         // This line fixes a change to the physics engine.
         Physics.defaultMaxDepenetrationVelocity = k_MaxDepenetrationVelocity;
 
-        m_StartWait = new WaitForSeconds(m_StartDelay);
-        m_EndWait = new WaitForSeconds(m_EndDelay);
+        m_StartWait = new WaitForSeconds(roundsDef.m_StartDelay);
+        m_EndWait = new WaitForSeconds(roundsDef.m_EndDelay);
 
         SpawnAllTanks();
         SetCameraTargets();
@@ -37,6 +36,18 @@ public class GameManager : MonoBehaviour
         StartCoroutine(GameLoop());
     }
 
+    void OneSecMethod()
+    {
+        Debug.Log("OneSecMethod");
+    }
+    void TwoSecMethod()
+    {
+        Debug.LogWarning("TwoSecMethod");
+    }
+    void ThreeSecMethod()
+    {
+        Debug.LogError("ThreeSecMethod");
+    }
 
     private void SpawnAllTanks()
     {
@@ -158,7 +169,7 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < m_Tanks.Length; i++)
             {
-                if (m_Tanks[i].m_Wins == m_NumRoundsToWin)
+                if (m_Tanks[i].m_Wins == roundsDef.m_NumRoundsToWin)
                     return m_Tanks[i];
             }
 
