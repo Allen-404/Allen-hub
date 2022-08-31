@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public GameObject m_TankPrefab;
     public TankManager[] m_Tanks;
 
+    [SerializeField]
+    public int t;
+    [SerializeField]
+    private int ss;
 
     private int m_RoundNumber;
     private WaitForSeconds m_StartWait;
