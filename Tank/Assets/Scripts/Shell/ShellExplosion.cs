@@ -5,7 +5,7 @@ public class ShellExplosion : MonoBehaviour
     public LayerMask m_TankMask;
     public ParticleSystem m_ExplosionParticles;
     public AudioSource m_ExplosionAudio;
-    public float m_MaxDamage = 100f;
+    public float damage = 100f;
     public float m_ExplosionForce = 1000f;
     public float m_MaxLifeTime = 2f;
     public float m_ExplosionRadius = 5f;
@@ -25,6 +25,14 @@ public class ShellExplosion : MonoBehaviour
         {
             return;
         }
+
+        ConstructionDestroyable constructionDestroyable = other.GetComponent<ConstructionDestroyable>();
+        if (constructionDestroyable != null)
+        {
+            constructionDestroyable.ReceiveDamage((int)damage);
+            return;
+        }
+
         // Find all the tanks in an area around the shell and damage them.
         Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
 
@@ -63,11 +71,6 @@ public class ShellExplosion : MonoBehaviour
         Vector3 explosionToTarget = targetPosition - transform.position;
 
         float explosionDistance = explosionToTarget.magnitude;
-
-        float relativeDistance = (m_ExplosionRadius - explosionDistance) / m_ExplosionRadius;
-
-        float damage = relativeDistance * m_MaxDamage;
-
         damage = Mathf.Max(0f, damage);
 
         return damage;
