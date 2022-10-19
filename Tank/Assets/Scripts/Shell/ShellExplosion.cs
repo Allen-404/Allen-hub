@@ -22,15 +22,12 @@ public class ShellExplosion : MonoBehaviour
         Debug.Log(other.gameObject);
         Debug.Log(host.gameObject);
         if (other.transform == host)
-        {
             return;
-        }
 
         ConstructionDestroyable constructionDestroyable = other.GetComponent<ConstructionDestroyable>();
         if (constructionDestroyable != null)
         {
             constructionDestroyable.ReceiveDamage((int)damage);
-            return;
         }
 
         // Find all the tanks in an area around the shell and damage them.
@@ -38,29 +35,27 @@ public class ShellExplosion : MonoBehaviour
 
         for (int i = 0; i < colliders.Length; i++)
         {
+            if (colliders[i].transform == host)
+                continue;
+
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
 
             if (!targetRigidbody)
                 continue;
 
             targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
-
             TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
 
             if (!targetHealth)
                 continue;
 
             float damage = CalculateDamage(targetRigidbody.position);
-
             targetHealth.TakeDamage(damage);
         }
 
         m_ExplosionParticles.transform.parent = null;
-
         m_ExplosionParticles.Play();
-
         m_ExplosionAudio.Play();
-
         Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
         Destroy(gameObject);
     }
@@ -69,7 +64,6 @@ public class ShellExplosion : MonoBehaviour
     {
         // Calculate the amount of damage a target should take based on it's position.
         Vector3 explosionToTarget = targetPosition - transform.position;
-
         float explosionDistance = explosionToTarget.magnitude;
         damage = Mathf.Max(0f, damage);
 

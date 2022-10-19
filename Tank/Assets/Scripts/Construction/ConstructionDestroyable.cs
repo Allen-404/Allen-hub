@@ -21,15 +21,13 @@ public class ConstructionDestroyable : MonoBehaviour
     public void ReceiveDamage(int dmg)
     {
         if (_dead)
-        {
             return;
-        }
 
         _hp -= dmg;
         if (_hp <= 0)
         {
             Die();
-            Destroy(_bar.gameObject);
+       
         }
         else
         {
@@ -39,10 +37,16 @@ public class ConstructionDestroyable : MonoBehaviour
 
     void Die()
     {
+        if (_dead)
+            return;
         _dead = true;
-        Destroy(gameObject, 2);
+        Destroy(_bar.gameObject);
         var dieVFx = Instantiate(explodePrefab, transform.position + Vector3.up, transform.rotation);
         Destroy(dieVFx, 3);
+        var dieVFx2 = Instantiate(CombatSystem.instance.vfx_constructionExplode, transform.position + Vector3.up, transform.rotation);
+        Destroy(dieVFx2, 3);
+
+        Destroy(gameObject);
     }
 
     void SyncBar()
