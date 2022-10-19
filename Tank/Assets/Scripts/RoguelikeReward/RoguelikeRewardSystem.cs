@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace RoguelikeCombat
 {
@@ -44,10 +45,21 @@ namespace RoguelikeCombat
             perks.Add(id);
         }
 
+        public void StartNewEventWithDelay(float delay = 2f)
+        {
+            StartCoroutine(StartNewEventWithDelayCoroutine(delay));
+        }
+
+        IEnumerator StartNewEventWithDelayCoroutine(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            StartNewEvent();
+        }
+
         public void StartNewEvent()
         {
             var data = new RoguelikeRewardEventData();
-            data.title = "Choose a Upgrade!";
+            //data.title = "Choose a Upgrade!";
 
             int rewardCount = 3;
             var pool = GetPendingPool(rewardCount);

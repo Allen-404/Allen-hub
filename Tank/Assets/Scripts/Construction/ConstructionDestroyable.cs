@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ConstructionDestroyable : MonoBehaviour
 {
@@ -11,6 +10,8 @@ public class ConstructionDestroyable : MonoBehaviour
 
     bool _dead;
     public GameObject explodePrefab;
+
+    public bool startRoguelikeUpgrade;
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class ConstructionDestroyable : MonoBehaviour
         if (_hp <= 0)
         {
             Die();
-       
+
         }
         else
         {
@@ -46,8 +47,12 @@ public class ConstructionDestroyable : MonoBehaviour
         var dieVFx2 = Instantiate(CombatSystem.instance.vfx_constructionExplode, transform.position + Vector3.up, transform.rotation);
         Destroy(dieVFx2, 3);
 
+        if (startRoguelikeUpgrade)
+            RoguelikeCombat.RoguelikeRewardSystem.instance.StartNewEventWithDelay(2);
+
         Destroy(gameObject);
     }
+
 
     void SyncBar()
     {
