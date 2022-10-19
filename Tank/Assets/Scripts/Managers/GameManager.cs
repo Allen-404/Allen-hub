@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public RoundsDefinition roundsDef;
 
     public CameraControl m_CameraControl;
-    public Text m_MessageText;
     public GameObject m_TankPrefab;
     public Transform spawnSpot;
     private int m_RoundNumber;
@@ -28,7 +27,6 @@ public class GameManager : MonoBehaviour
 
         SpawnAllTanks();
         SetCameraTargets();
-        m_MessageText.text = "";
     }
 
     private void SpawnAllTanks()

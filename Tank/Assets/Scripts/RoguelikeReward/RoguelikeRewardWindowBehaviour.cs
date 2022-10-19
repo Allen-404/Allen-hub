@@ -39,7 +39,7 @@ namespace RoguelikeCombat
 
             button.SetActive(false);
             detailPanel.SetActive(false);
-            mainTitle.text = data.title;
+            //mainTitle.text = data.title;
 
             int lenSlot = slots.Count;
             int lenReward = data.rewards.Count;
@@ -72,7 +72,7 @@ namespace RoguelikeCombat
 
             detailTitle.text = proto.title;
             detailDesc.text = proto.desc;
-            detailImage.sprite = proto.sp;
+            //detailImage.sprite = proto.sp;
 
             detailPanel.SetActive(true);
         }
