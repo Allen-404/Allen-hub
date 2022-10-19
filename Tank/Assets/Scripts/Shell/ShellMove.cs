@@ -6,6 +6,6 @@ public class ShellMove : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        transform.position += transform.forward * speed * com.GameTime.deltaTime;
     }
 }

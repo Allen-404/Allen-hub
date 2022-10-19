@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using com;
 
 public class ShellExplosion : MonoBehaviour
 {
@@ -11,16 +12,23 @@ public class ShellExplosion : MonoBehaviour
     public float m_ExplosionRadius = 5f;
 
     public Transform host;
+    private float _dieTimestamp;
 
     private void Start()
     {
-        Destroy(gameObject, m_MaxLifeTime);
+        _dieTimestamp = GameTime.time + m_MaxLifeTime;
+    }
+
+    private void Update()
+    {
+        if(GameTime.time> _dieTimestamp)
+            Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
-        Debug.Log(host.gameObject);
+        //Debug.Log(other.gameObject);
+        //  Debug.Log(host.gameObject);
         if (other.transform == host)
             return;
 

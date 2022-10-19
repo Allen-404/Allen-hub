@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using DG.Tweening;
 
 namespace RoguelikeCombat
 {
@@ -47,12 +48,20 @@ namespace RoguelikeCombat
 
         public void StartNewEventWithDelay(float delay = 2f)
         {
+            _timePassedSinceStartNewEventWithDelay = 0;
             StartCoroutine(StartNewEventWithDelayCoroutine(delay));
         }
 
+        private float _timePassedSinceStartNewEventWithDelay = 0;
         IEnumerator StartNewEventWithDelayCoroutine(float delay)
         {
-            yield return new WaitForSeconds(delay);
+            while (_timePassedSinceStartNewEventWithDelay < delay)
+            {
+                _timePassedSinceStartNewEventWithDelay += Time.unscaledDeltaTime;
+                Time.timeScale = Mathf.Max(0, 1 - _timePassedSinceStartNewEventWithDelay / delay);
+                yield return null;
+            }
+            // yield return new WaitForSeconds(delay);
             StartNewEvent();
         }
 
@@ -68,9 +77,12 @@ namespace RoguelikeCombat
                 Debug.LogError("Not enough reward to pick!");
                 return;
             }
+
             data.rewards = pool;
             RoguelikeRewardWindowBehaviour.instance.Setup(data);
             RoguelikeRewardWindowBehaviour.instance.Show();
+            com.GameTime.timeScale = 0;
+            Time.timeScale = 1;
         }
 
         public int GetCurrentPerkCount()

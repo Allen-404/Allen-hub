@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using RoguelikeCombat;
+using com;
+using System.Collections;
 
 public class TankShooting : MonoBehaviour
 {
@@ -9,6 +12,7 @@ public class TankShooting : MonoBehaviour
     public float fireInverval = 0.4f;
     float _firedTimestamp;
     bool _isFiring;
+    public int baseDamage = 20;
 
     private void Start()
     {
@@ -17,6 +21,12 @@ public class TankShooting : MonoBehaviour
 
     private void Update()
     {
+        if (com.GameTime.timeScale == 0)
+        {
+            _isFiring = false;
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
             _isFiring = true;
         if (Input.GetKeyUp(KeyCode.Space))
@@ -24,7 +34,7 @@ public class TankShooting : MonoBehaviour
 
         if (_isFiring)
         {
-            if (Time.time - _firedTimestamp > fireInverval)
+            if (com.GameTime.time - _firedTimestamp > fireInverval)
             {
                 Fire();
             }
@@ -33,13 +43,64 @@ public class TankShooting : MonoBehaviour
 
     private void Fire()
     {
-        _firedTimestamp = Time.time;
+        _firedTimestamp = com.GameTime.time;
+        MakeFire();
 
-        var shell = Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation);
-        ShellExplosion se = shell.GetComponent<ShellExplosion>();
-        se.host = this.transform;
+        CoolDownSystem.instance.TryTrigger(RoguelikeIdentifier.RunningFire1,
+            () => { StartCoroutine(MakeDelayedFire(0.11f)); }, 4.0f);
+        CoolDownSystem.instance.TryTrigger(RoguelikeIdentifier.RunningFire2,
+            () => { StartCoroutine(MakeDelayedFire(0.22f)); }, 4.0f);
+    }
+
+    IEnumerator MakeDelayedFire(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        MakeFire();
+    }
+
+    void MakeFire()
+    {
+        var finalDamage = baseDamage;
+        if (RoguelikeRewardSystem.instance.HasPerk(RoguelikeIdentifier.DamageUp1))
+        {
+            finalDamage = MathGame.GetPercentageAdded(finalDamage, 50);
+        }
+        if (RoguelikeRewardSystem.instance.HasPerk(RoguelikeIdentifier.DamageUp2))
+        {
+            finalDamage = MathGame.GetPercentageAdded(finalDamage, 50);
+        }
+
+        if (RoguelikeRewardSystem.instance.HasPerk(RoguelikeIdentifier.ExtraCannon1))
+        {
+            if (RoguelikeRewardSystem.instance.HasPerk(RoguelikeIdentifier.ExtraCannon2))
+            {
+                //3 shoots
+                CreateBullet(finalDamage, m_FireTransform.position + transform.right * 0.3f);
+                CreateBullet(finalDamage, m_FireTransform.position);
+                CreateBullet(finalDamage, m_FireTransform.position + transform.right * (-0.3f));
+            }
+            else
+            {
+                //2 shoots
+                CreateBullet(finalDamage, m_FireTransform.position + transform.right * 0.2f);
+                CreateBullet(finalDamage, m_FireTransform.position + transform.right * (-0.2f));
+            }
+        }
+        else
+        {
+            //only 1 shoot
+            CreateBullet(finalDamage, m_FireTransform.position);
+        }
 
         m_ShootingAudio.clip = m_FireClip;
         m_ShootingAudio.Play();
+    }
+
+    void CreateBullet(int dmg, Vector3 pos)
+    {
+        var shell = Instantiate(m_Shell, pos, m_FireTransform.rotation);
+        ShellExplosion se = shell.GetComponent<ShellExplosion>();
+        se.host = this.transform;
+        se.damage = dmg;
     }
 }

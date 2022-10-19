@@ -72,6 +72,8 @@ namespace Complete
 
         private void Update ()
         {
+            if (com.GameTime.timeScale == 0)
+                return;
             // Store the value of both input axes.
             m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
             m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
@@ -119,7 +121,7 @@ namespace Complete
         private void Move ()
         {
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-            Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
+            Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * com.GameTime.deltaTime;
 
             // Apply this movement to the rigidbody's position.
             m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
@@ -129,7 +131,7 @@ namespace Complete
         private void Turn ()
         {
             // Determine the number of degrees to be turned based on the input, speed and time between frames.
-            float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
+            float turn = m_TurnInputValue * m_TurnSpeed * com.GameTime.deltaTime;
 
             // Make this into a rotation in the y axis.
             Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);

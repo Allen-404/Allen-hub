@@ -43,6 +43,9 @@ namespace Complete
 
         private void Update ()
         {
+            if (com.GameTime.timeScale == 0)
+                return;
+
             // The slider should have a default value of the minimum launch force.
             m_AimSlider.value = m_MinLaunchForce;
 
@@ -68,7 +71,7 @@ namespace Complete
             else if (Input.GetButton (m_FireButton) && !m_Fired)
             {
                 // Increment the launch force and update the slider.
-                m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
+                m_CurrentLaunchForce += m_ChargeSpeed * com.GameTime.deltaTime;
 
                 m_AimSlider.value = m_CurrentLaunchForce;
             }

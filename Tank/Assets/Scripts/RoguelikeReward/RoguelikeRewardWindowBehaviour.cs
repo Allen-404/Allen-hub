@@ -81,6 +81,7 @@ namespace RoguelikeCombat
         {
             RoguelikeRewardSystem.instance.AddPerk(_tempRoguelikeIdentifier);
             Hide();
+            com.GameTime.timeScale = 1;
         }
 
         public void Show()
