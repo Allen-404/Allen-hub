@@ -10,7 +10,7 @@ public class EnemyShooting : MonoBehaviour
     public AudioSource m_ShootingAudio;
     public AudioClip m_ChargingClip;
     public AudioClip m_FireClip;
-    public float launchForce;
+    public int baseDamage;
     public float attackRate;
     float _attackIntervalTimer;
 
@@ -39,9 +39,18 @@ public class EnemyShooting : MonoBehaviour
     {
         Rigidbody shellInstance = Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
         shellInstance.GetComponent<ShellExplosion>().origin = host;
-        shellInstance.velocity = launchForce * m_FireTransform.forward;
-
+        var finalDamage = baseDamage;
+        CreateBullet(finalDamage, m_FireTransform.position);
         m_ShootingAudio.clip = m_FireClip;
         m_ShootingAudio.Play();
+    }
+
+    void CreateBullet(int dmg, Vector3 pos)
+    {
+        var shell = Instantiate(m_Shell, pos, m_FireTransform.rotation);
+        ShellExplosion se = shell.GetComponent<ShellExplosion>();
+        se.host = this.transform;
+        se.origin = host;
+        se.damage = dmg;
     }
 }

@@ -13,7 +13,8 @@ public class ShellExplosion : MonoBehaviour
     public Tank origin;
     public Transform host;
     private float _dieTimestamp;
-
+    public bool harmEnemy;
+    public bool harmPlayer;
     private void Start()
     {
         _dieTimestamp = GameTime.time + m_MaxLifeTime;
@@ -21,7 +22,7 @@ public class ShellExplosion : MonoBehaviour
 
     private void Update()
     {
-        if(GameTime.time> _dieTimestamp)
+        if (GameTime.time > _dieTimestamp)
             Destroy(gameObject);
     }
 
@@ -32,17 +33,24 @@ public class ShellExplosion : MonoBehaviour
         if (other.transform == host)
             return;
 
+        var willDestroy = false;
         ConstructionDestroyable constructionDestroyable = other.GetComponent<ConstructionDestroyable>();
         if (constructionDestroyable != null)
         {
-            constructionDestroyable.ReceiveDamage((int)damage);
+            willDestroy = true;
+            if (harmEnemy)
+            {
+                constructionDestroyable.ReceiveDamage((int)damage);
+            }
         }
 
         // Find all the tanks in an area around the shell and damage them.
         Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
 
+
         for (int i = 0; i < colliders.Length; i++)
         {
+            //Debug.Log("colliders" + colliders[i].gameObject);
             if (colliders[i].transform == host)
                 continue;
 
@@ -51,30 +59,31 @@ public class ShellExplosion : MonoBehaviour
             if (!targetRigidbody)
                 continue;
 
-            targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
-            TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
 
-            if (!targetHealth)
-                continue;
+            Tank tank = targetRigidbody.GetComponent<Tank>();
 
-            float damage = CalculateDamage(targetRigidbody.position);
-            targetHealth.TakeDamage(damage,origin);
+            if (tank != null)
+            {
+                if (tank == origin)
+                {
+                    continue;
+                }
+                else if ((tank.identifier == TankIdentifier.Player && harmPlayer) || (tank.identifier == TankIdentifier.Enemy && harmEnemy))
+                {
+                    willDestroy = true;
+                    tank.health.TakeDamage(damage, origin);
+                    targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
+                }
+            }
         }
 
-        m_ExplosionParticles.transform.parent = null;
-        m_ExplosionParticles.Play();
-        m_ExplosionAudio.Play();
-        Destroy(m_ExplosionParticles.gameObject, 3);
-        Destroy(gameObject);
-    }
-
-    private float CalculateDamage(Vector3 targetPosition)
-    {
-        // Calculate the amount of damage a target should take based on it's position.
-        Vector3 explosionToTarget = targetPosition - transform.position;
-        float explosionDistance = explosionToTarget.magnitude;
-        damage = Mathf.Max(0f, damage);
-
-        return damage;
+        if (willDestroy)
+        {
+            m_ExplosionParticles.transform.parent = null;
+            m_ExplosionParticles.Play();
+            m_ExplosionAudio.Play();
+            Destroy(m_ExplosionParticles.gameObject, 3);
+            Destroy(gameObject);
+        }
     }
 }
