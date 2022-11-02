@@ -4,11 +4,9 @@ public class EnemyShooting : MonoBehaviour
 {
     [HideInInspector]
     public EnemyTank host;
-
     public Rigidbody m_Shell;
     public Transform m_FireTransform;
     public AudioSource m_ShootingAudio;
-    public AudioClip m_ChargingClip;
     public AudioClip m_FireClip;
     public int baseDamage;
     public float attackRate;

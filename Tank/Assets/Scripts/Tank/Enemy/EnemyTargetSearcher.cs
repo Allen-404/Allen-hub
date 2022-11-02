@@ -58,6 +58,8 @@ public class EnemyTargetSearcher : Ticker
 
     Tank FindTargetInSight()
     {
+        if (host.attackChecker.hasTargetInSight)
+            return GameManager.instance.playerTank;
         return null;
     }
 
