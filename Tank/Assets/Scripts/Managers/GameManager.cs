@@ -5,18 +5,25 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+    public Tank playerTankPrefab;
+    public Tank playerTank;
+
     public RoundsDefinition roundsDef;
 
     public CameraControl m_CameraControl;
-    public GameObject m_TankPrefab;
     public Transform spawnSpot;
     private int m_RoundNumber;
     private WaitForSeconds m_StartWait;
     private WaitForSeconds m_EndWait;
 
-    public GameObject playerTank;
+  
     const float k_MaxDepenetrationVelocity = float.PositiveInfinity;
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void Start()
     {
         // This line fixes a change to the physics engine.
@@ -31,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnAllTanks()
     {
-        playerTank = Instantiate(m_TankPrefab, spawnSpot.position, spawnSpot.rotation);
+        playerTank = Instantiate(playerTankPrefab, spawnSpot.position, spawnSpot.rotation);
     }
 
     private void SetCameraTargets()

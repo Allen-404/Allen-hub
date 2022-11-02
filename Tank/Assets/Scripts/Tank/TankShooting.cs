@@ -14,6 +14,9 @@ public class TankShooting : MonoBehaviour
     bool _isFiring;
     public int baseDamage = 20;
 
+    [HideInInspector]
+    public Tank host;
+
     private void Start()
     {
         _isFiring = false;
@@ -101,6 +104,7 @@ public class TankShooting : MonoBehaviour
         var shell = Instantiate(m_Shell, pos, m_FireTransform.rotation);
         ShellExplosion se = shell.GetComponent<ShellExplosion>();
         se.host = this.transform;
+        se.origin = host;
         se.damage = dmg;
     }
 }

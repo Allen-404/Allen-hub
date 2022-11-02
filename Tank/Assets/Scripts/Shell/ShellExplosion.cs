@@ -10,7 +10,7 @@ public class ShellExplosion : MonoBehaviour
     public float m_ExplosionForce = 1000f;
     public float m_MaxLifeTime = 2f;
     public float m_ExplosionRadius = 5f;
-
+    public Tank origin;
     public Transform host;
     private float _dieTimestamp;
 
@@ -58,13 +58,13 @@ public class ShellExplosion : MonoBehaviour
                 continue;
 
             float damage = CalculateDamage(targetRigidbody.position);
-            targetHealth.TakeDamage(damage);
+            targetHealth.TakeDamage(damage,origin);
         }
 
         m_ExplosionParticles.transform.parent = null;
         m_ExplosionParticles.Play();
         m_ExplosionAudio.Play();
-        Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
+        Destroy(m_ExplosionParticles.gameObject, 3);
         Destroy(gameObject);
     }
 
