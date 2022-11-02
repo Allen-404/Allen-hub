@@ -18,6 +18,8 @@ public class TankMovement : MonoBehaviour
     private float m_TurnInputValue;
     private float m_OriginalPitch;
 
+    [HideInInspector]
+    public Tank host;
 
     private void Awake()
     {

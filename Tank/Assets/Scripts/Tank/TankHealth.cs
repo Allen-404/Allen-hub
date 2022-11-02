@@ -3,20 +3,22 @@ using UnityEngine.UI;
 
 public class TankHealth : MonoBehaviour
 {
-    public float m_StartingHealth = 100f;          
-    public Slider m_Slider;                        
-    public Image m_FillImage;                      
-    public Color m_FullHealthColor = Color.green;  
-    public Color m_ZeroHealthColor = Color.red;    
+    [HideInInspector]
+    public Tank host;
+
+    public float m_StartingHealth = 100f;
+    public Slider m_Slider;
+    public Image m_FillImage;
+    public Color m_FullHealthColor = Color.green;
+    public Color m_ZeroHealthColor = Color.red;
     public GameObject m_ExplosionPrefab;
-    
-    
-    private AudioSource m_ExplosionAudio;          
-    private ParticleSystem m_ExplosionParticles;   
-    private float m_CurrentHealth;  
+
+
+    private AudioSource m_ExplosionAudio;
+    private ParticleSystem m_ExplosionParticles;
+    private float m_CurrentHealth;
     private bool m_Dead;
 
-    public float healthLowWarnCap = 5;
 
     private void Awake()
     {
@@ -34,33 +36,35 @@ public class TankHealth : MonoBehaviour
 
         SetHealthUI();
     }
-    
 
-    public void TakeDamage(float amount)
+
+    public void TakeDamage(float amount, Tank origin)
     {
         // Adjust the tank's current health, update the UI based on the new health and check whether or not the tank is dead.
         m_CurrentHealth -= amount;
-        SetHealthUI ();
-        if (m_CurrentHealth <= healthLowWarnCap && !m_Dead)
-        {
-            Warning();
-        }
+
+        SetHealthUI();
+
         if (m_CurrentHealth <= 0f && !m_Dead)
         {
             OnDeath();
+            return;
+        }
+
+        var enemyTank = host as EnemyTank;
+        if (enemyTank != null)
+        {
+            enemyTank.targetSearcher.OnAttacked(origin);
         }
     }
 
-    void Warning()
-    {
-        Debug.Log("warn player that the health is too low!");
-    }
 
     private void SetHealthUI()
     {
         // Adjust the value and colour of the slider.
         m_Slider.value = m_CurrentHealth;
-        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
+
+        m_FillImage.color = Color.Lerp(m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
     }
 
 
@@ -76,6 +80,14 @@ public class TankHealth : MonoBehaviour
 
         m_ExplosionAudio.Play();
 
-        gameObject.SetActive(false);
+        //EnemyAttackChecker.CheckAllCheckers();
+        //CheckWinSystem.instance.Check();
+
+        Destroy(gameObject);
+    }
+
+    public bool IsDead()
+    {
+        return m_Dead;
     }
 }
