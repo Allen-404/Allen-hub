@@ -4,13 +4,6 @@ using com;
 
 public class EnemyTargetSearcher : Ticker
 {
-    //when not in alert
-    //if attacked or has a Player or wingman In Sight
-    //-> alert
-    //target replace order
-    //OnAttacked 1st piority
-    //in sight 2st piority
-
     [HideInInspector]
     public EnemyTank host;
 
@@ -36,12 +29,14 @@ public class EnemyTargetSearcher : Ticker
 
     void ExitAlert()
     {
+        //Debug.Log("ExitAlert");
         alert = false;
         currentTarget = null;
     }
 
     void EnterAlert(Tank target)
     {
+        //Debug.Log("EnterAlert");
         alert = true;
         currentTarget = target;
     }
