@@ -15,6 +15,7 @@ public class EnemyAttackChecker : MonoBehaviour
         var player = other.gameObject.GetComponent<Tank>();
         if (player == GameManager.instance.playerTank)
         {
+            Debug.Log("player in sight");
             hasTargetInSight = true;
         }
     }
@@ -24,6 +25,7 @@ public class EnemyAttackChecker : MonoBehaviour
         var player = other.gameObject.GetComponent<Tank>();
         if (player == GameManager.instance.playerTank)
         {
+            Debug.Log("player no in sight");
             hasTargetInSight = false;
         }
     }

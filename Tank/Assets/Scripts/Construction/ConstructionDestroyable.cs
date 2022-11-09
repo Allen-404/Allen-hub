@@ -10,8 +10,11 @@ public class ConstructionDestroyable : MonoBehaviour
 
     bool _dead;
     public GameObject explodePrefab;
-
+    public float hpBarHeight = 4;
+    public float hpBarScale = 0.01f;
     public bool startRoguelikeUpgrade;
+
+    public LevelBehaviour winLevelAfterDestroyed;
 
     void Start()
     {
@@ -47,8 +50,10 @@ public class ConstructionDestroyable : MonoBehaviour
         var dieVFx2 = Instantiate(CombatSystem.instance.vfx_constructionExplode, transform.position + Vector3.up, transform.rotation);
         Destroy(dieVFx2, 3);
 
+        winLevelAfterDestroyed?.Win();
+
         if (startRoguelikeUpgrade)
-            RoguelikeCombat.RoguelikeRewardSystem.instance.StartNewEventWithDelay(2);
+            RoguelikeCombat.RoguelikeRewardSystem.instance.StartNewEventWithDelay(3);
 
         Destroy(gameObject);
     }
@@ -58,7 +63,8 @@ public class ConstructionDestroyable : MonoBehaviour
     {
         if (_bar == null)
         {
-            _bar = Instantiate(hpbarPrefab, transform.position + Vector3.up * 3, Quaternion.identity);
+            _bar = Instantiate(hpbarPrefab, transform.position + Vector3.up * hpBarHeight, Quaternion.identity);
+            _bar.gameObject.transform.localScale = Vector3.one * hpBarScale;
         }
 
         _bar.SetValue(((float)_hp / hpMax));

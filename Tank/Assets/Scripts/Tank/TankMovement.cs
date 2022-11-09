@@ -13,7 +13,7 @@ public class TankMovement : MonoBehaviour
 
     private string m_MovementAxisName;
     private string m_TurnAxisName;
-    private Rigidbody m_Rigidbody;
+    private CharacterController cc;
     private float m_MovementInputValue;
     private float m_TurnInputValue;
     private float m_OriginalPitch;
@@ -23,23 +23,14 @@ public class TankMovement : MonoBehaviour
 
     private void Awake()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
     }
-
 
     private void OnEnable()
     {
-        m_Rigidbody.isKinematic = false;
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
     }
-
-
-    private void OnDisable()
-    {
-        m_Rigidbody.isKinematic = true;
-    }
-
 
     private void Start()
     {
@@ -55,7 +46,8 @@ public class TankMovement : MonoBehaviour
         // Store the player's input and make sure the audio for the engine is playing.
         if (com.GameTime.timeScale == 0)
             return;
-
+        if (host.IsDead())
+            return;
         m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
         m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
 
@@ -88,21 +80,23 @@ public class TankMovement : MonoBehaviour
         }
     }
 
-
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        // Move and turn the tank.
+        if (com.GameTime.timeScale == 0)
+            return;
+        if (host.IsDead())
+            return;
         Move();
         Turn();
     }
-
 
     private void Move()
     {
         // Adjust the position of the tank based on the player's input.
         Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * com.GameTime.deltaTime;
-
-        m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+        // transform.position += movement;
+        cc.SimpleMove(transform.forward * m_MovementInputValue * m_Speed);
+        //m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
     }
 
 
@@ -112,7 +106,7 @@ public class TankMovement : MonoBehaviour
         float turn = m_TurnInputValue * m_TurnSpeed * com.GameTime.deltaTime;
 
         Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-
-        m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+        transform.rotation *= turnRotation;
+        //m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
     }
 }

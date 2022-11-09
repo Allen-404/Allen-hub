@@ -24,6 +24,10 @@ public class TankShooting : MonoBehaviour
 
     private void Update()
     {
+        if (host.IsDead())
+        {
+            return;
+        }
         if (com.GameTime.timeScale == 0)
         {
             _isFiring = false;
