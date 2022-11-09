@@ -51,6 +51,9 @@ public class TankMovement : MonoBehaviour
         m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
 
         EngineAudio();
+
+        Move();
+        Turn();
     }
 
 
@@ -78,15 +81,6 @@ public class TankMovement : MonoBehaviour
 
         }
     }
-
-
-    private void FixedUpdate()
-    {
-        // Move and turn the tank.
-        Move();
-        Turn();
-    }
-
 
     private void Move()
     {
