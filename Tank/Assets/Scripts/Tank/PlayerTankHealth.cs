@@ -15,7 +15,7 @@ public class PlayerTankHealth : TankHealth
         m_ExplosionAudio.Play();
 
         dieIntoParts?.Die();
-
+        CombatSystem.instance.GameOver();
         //show fail
     }
 }
