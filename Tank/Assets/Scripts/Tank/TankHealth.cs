@@ -17,7 +17,7 @@ public class TankHealth : MonoBehaviour
     protected ParticleSystem m_ExplosionParticles;
     protected float m_CurrentHealth;
     protected bool m_Dead;
-
+    public DieIntoPartsBehaviour dieIntoParts;
     private void Awake()
     {
         m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
@@ -69,7 +69,7 @@ public class TankHealth : MonoBehaviour
         // Play the effects for the death of the tank and deactivate it.
         m_Dead = true;
 
-        m_ExplosionParticles.transform.position = transform.position;
+        m_ExplosionParticles.transform.position = transform.position+Vector3.up*0.6f;
         m_ExplosionParticles.gameObject.SetActive(true);
 
         m_ExplosionParticles.Play();
@@ -78,7 +78,7 @@ public class TankHealth : MonoBehaviour
 
         //EnemyAttackChecker.CheckAllCheckers();
         //CheckWinSystem.instance.Check();
-
+        dieIntoParts?.Die();
         Destroy(gameObject);
     }
 

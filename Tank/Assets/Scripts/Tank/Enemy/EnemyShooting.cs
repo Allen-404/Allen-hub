@@ -39,6 +39,8 @@ public class EnemyShooting : MonoBehaviour
         {
             FireByCannon(cannon);
         }
+
+        host.movement.StartTempStop();
     }
 
     void FireByCannon(Transform cannonTrans)

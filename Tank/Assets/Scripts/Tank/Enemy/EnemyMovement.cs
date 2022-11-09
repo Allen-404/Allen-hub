@@ -10,6 +10,10 @@ public class EnemyMovement : MonoBehaviour
 
     public Transform[] patrolPoints;
     int _patrolIndex;
+    bool _tempStop;
+    public float tempStopDuration = 1.8f;
+    float _resumeTempStopTimestamp;
+    Vector3 _lastDestination;
 
     private void Awake()
     {
@@ -34,10 +38,29 @@ public class EnemyMovement : MonoBehaviour
 
     private void CheckMove()
     {
+        if (_tempStop)
+        {
+            if (Time.time > _resumeTempStopTimestamp)
+            {
+                _tempStop = false;
+                SetDestination(_lastDestination);
+            }
+
+            return;
+        }
+
         var distanceVector = transform.position - _agent.destination;
         distanceVector.y = 0;
         if (distanceVector.magnitude < 0.6f)
             Arrived();
+    }
+
+    public void StartTempStop()
+    {
+        _resumeTempStopTimestamp = Time.time + tempStopDuration;
+        _tempStop = true;
+        _lastDestination = _agent.destination;
+        SetDestination(transform.position);
     }
 
     public void Chase()

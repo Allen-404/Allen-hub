@@ -13,6 +13,9 @@ public class PlayerTankHealth : TankHealth
         m_ExplosionParticles.Play();
 
         m_ExplosionAudio.Play();
+
+        dieIntoParts?.Die();
+
         //show fail
     }
 }
