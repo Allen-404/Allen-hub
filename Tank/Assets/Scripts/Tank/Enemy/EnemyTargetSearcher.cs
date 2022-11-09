@@ -29,14 +29,14 @@ public class EnemyTargetSearcher : Ticker
 
     void ExitAlert()
     {
-        //Debug.Log("ExitAlert");
+        Debug.Log("ExitAlert");
         alert = false;
         currentTarget = null;
     }
 
     void EnterAlert(Tank target)
     {
-        //Debug.Log("EnterAlert");
+        Debug.Log("EnterAlert");
         alert = true;
         currentTarget = target;
     }

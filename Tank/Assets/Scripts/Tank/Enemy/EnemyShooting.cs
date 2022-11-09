@@ -5,7 +5,7 @@ public class EnemyShooting : MonoBehaviour
     [HideInInspector]
     public EnemyTank host;
     public Rigidbody m_Shell;
-    public Transform m_FireTransform;
+    public Transform[] m_FireTransforms;
     public AudioSource m_ShootingAudio;
     public AudioClip m_FireClip;
     public int baseDamage;
@@ -33,19 +33,27 @@ public class EnemyShooting : MonoBehaviour
         }
     }
 
-    private void Fire()
+    void Fire()
     {
-        Rigidbody shellInstance = Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
+        foreach (var cannon in m_FireTransforms)
+        {
+            FireByCannon(cannon);
+        }
+    }
+
+    void FireByCannon(Transform cannonTrans)
+    {
+        Rigidbody shellInstance = Instantiate(m_Shell, cannonTrans.position, cannonTrans.rotation) as Rigidbody;
         shellInstance.GetComponent<ShellExplosion>().origin = host;
         var finalDamage = baseDamage;
-        CreateBullet(finalDamage, m_FireTransform.position);
+        CreateBullet(finalDamage, cannonTrans.position, cannonTrans.rotation);
         m_ShootingAudio.clip = m_FireClip;
         m_ShootingAudio.Play();
     }
 
-    void CreateBullet(int dmg, Vector3 pos)
+    void CreateBullet(int dmg, Vector3 pos, Quaternion rot)
     {
-        var shell = Instantiate(m_Shell, pos, m_FireTransform.rotation);
+        var shell = Instantiate(m_Shell, pos, rot);
         ShellExplosion se = shell.GetComponent<ShellExplosion>();
         se.host = this.transform;
         se.origin = host;

@@ -35,6 +35,7 @@ public class EnemyMovement : MonoBehaviour
     private void CheckMove()
     {
         var distanceVector = transform.position - _agent.destination;
+        distanceVector.y = 0;
         if (distanceVector.magnitude < 0.6f)
             Arrived();
     }
