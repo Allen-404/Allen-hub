@@ -54,6 +54,14 @@ public class ShellExplosion : MonoBehaviour
             if (colliders[i].transform == host)
                 continue;
 
+            var landMine = colliders[i].transform.GetComponent<LandMineBehaviour>();
+            if (landMine != null)
+            {
+                landMine.ExplodeWithDelay(0.25f);
+                willDestroy = true;
+                break;
+            }
+
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
 
             if (!targetRigidbody)
