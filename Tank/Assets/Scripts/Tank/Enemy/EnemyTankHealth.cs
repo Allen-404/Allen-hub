@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyTankHealth : TankHealth
 {
-
     public enum TankTier
     {
         None,
@@ -13,11 +12,11 @@ public class EnemyTankHealth : TankHealth
 
     public TankTier tankTier;
 
-    public override void TakeDamage(float amount, Tank origin)
+    public override void TakeDamage(float amount, Tank origin, ShellExplosion shell = null)
     {
         if (RoguelikeCombat.RoguelikeRewardSystem.instance.HasPerk(RoguelikeCombat.RoguelikeIdentifier.AP))
         {
-            if (tankTier== TankTier.Heavy)
+            if (tankTier == TankTier.Heavy)
             {
                 amount *= 3;
             }

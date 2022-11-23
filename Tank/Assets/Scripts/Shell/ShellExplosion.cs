@@ -79,7 +79,7 @@ public class ShellExplosion : MonoBehaviour
                 else if ((tank.identifier == TankIdentifier.Player && harmPlayer) || (tank.identifier == TankIdentifier.Enemy && harmEnemy))
                 {
                     willDestroy = true;
-                    tank.health.TakeDamage(damage, origin);
+                    tank.health.TakeDamage(damage, origin, this);
                     targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
                 }
             }

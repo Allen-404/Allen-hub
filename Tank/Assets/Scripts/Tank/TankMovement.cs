@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using RoguelikeCombat;
 
 public class TankMovement : MonoBehaviour
 {
@@ -95,10 +96,12 @@ public class TankMovement : MonoBehaviour
         // Adjust the position of the tank based on the player's input.
         Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * com.GameTime.deltaTime;
         // transform.position += movement;
-        cc.SimpleMove(transform.forward * m_MovementInputValue * m_Speed);
+        var finalSpeed = m_Speed;
+        if (RoguelikeRewardSystem.instance.HasPerk(RoguelikeIdentifier.LightArmor))
+            finalSpeed += 3;
+        cc.SimpleMove(transform.forward * m_MovementInputValue * finalSpeed);
         //m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
     }
-
 
     private void Turn()
     {

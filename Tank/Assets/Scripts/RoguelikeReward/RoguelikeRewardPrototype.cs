@@ -15,10 +15,10 @@ namespace RoguelikeCombat
         ExtraCannon2 =7,//ok
         RunningFire1 =8,//ok
         RunningFire2 =9,//ok
-        HeavyArmor =10,
-        LightArmor=11,
-        EnergyShield=12,
-        Mine=13,//ok
+        HeavyArmor =10,//ok
+        LightArmor =11,//ok
+        EnergyShield =12,//ok
+        Mine =13,//ok
         UAV1 = 14,//unused
         UAV2 = 15,//unused
     }
