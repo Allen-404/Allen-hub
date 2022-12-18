@@ -18,6 +18,7 @@ public class TankHealth : MonoBehaviour
     protected float m_CurrentHealth;
     protected bool m_Dead;
     public DieIntoPartsBehaviour dieIntoParts;
+
     private void Awake()
     {
         m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
@@ -36,7 +37,7 @@ public class TankHealth : MonoBehaviour
     }
 
 
-    public void TakeDamage(float amount, Tank origin)
+    public virtual void TakeDamage(float amount, Tank origin, ShellExplosion shell = null)
     {
         // Adjust the tank's current health, update the UI based on the new health and check whether or not the tank is dead.
         m_CurrentHealth -= amount;
@@ -47,12 +48,6 @@ public class TankHealth : MonoBehaviour
         {
             OnDeath();
             return;
-        }
-
-        var enemyTank = host as EnemyTank;
-        if (enemyTank != null)
-        {
-            enemyTank.targetSearcher.OnAttacked(origin);
         }
     }
 

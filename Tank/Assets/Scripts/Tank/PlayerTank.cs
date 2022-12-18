@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerTank : Tank
 {
@@ -6,6 +7,8 @@ public class PlayerTank : Tank
     public TankMovement movement;
     [HideInInspector]
     public TankShooting shooting;
+
+    public float checkLaunchMineInterval = 1;
 
     protected override void Awake()
     {
@@ -16,5 +19,27 @@ public class PlayerTank : Tank
 
         movement.host = this;
         shooting.host = this;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(CheckLaunchMine());
+    }
+
+    IEnumerator CheckLaunchMine()
+    {
+        yield return new WaitForSeconds(checkLaunchMineInterval);
+        if (RoguelikeCombat.RoguelikeRewardSystem.instance.HasPerk(RoguelikeCombat.RoguelikeIdentifier.Mine))
+        {
+            LaunchMine();
+        }
+
+        StartCoroutine(CheckLaunchMine());
+    }
+
+    void LaunchMine()
+    {
+        var mine = Instantiate(CombatSystem.instance.minePrefab, transform.position - movement.transform.forward * 0.5f, Quaternion.identity, transform.parent);
+
     }
 }

@@ -5,22 +5,22 @@ namespace RoguelikeCombat
 {
     public enum RoguelikeIdentifier
     {
-        None = 0,
-        HE=1,
-        AP=2,
-        InvArmor=3,
-        DamageUp1 = 4,
-        DamageUp2=5,
-        ExtraCannon1=6,
-        ExtraCannon2=7,
-        RunningFire1=8,
-        RunningFire2=9,
-        HeavyArmor=10,
-        LightArmor=11,
-        EnergyShield=12,
-        Mine=13,
-        UAV1 = 14,
-        UAV2 = 15,
+        None = 0,//ok
+        HE=1,//ok
+        AP =2,//ok
+        InvArmor =3,
+        DamageUp1 = 4,//ok
+        DamageUp2 =5,//ok
+        ExtraCannon1 =6,//ok
+        ExtraCannon2 =7,//ok
+        RunningFire1 =8,//ok
+        RunningFire2 =9,//ok
+        HeavyArmor =10,//ok
+        LightArmor =11,//ok
+        EnergyShield =12,//ok
+        Mine =13,//ok
+        UAV1 = 14,//unused
+        UAV2 = 15,//unused
     }
 
     [CreateAssetMenu]

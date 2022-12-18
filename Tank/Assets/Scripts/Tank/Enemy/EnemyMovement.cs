@@ -83,6 +83,7 @@ public class EnemyMovement : MonoBehaviour
 
     void SetDestination(Vector3 targetPosition)
     {
-        _agent.SetDestination(targetPosition);
+        if (_agent.isActiveAndEnabled)
+            _agent.SetDestination(targetPosition);
     }
 }

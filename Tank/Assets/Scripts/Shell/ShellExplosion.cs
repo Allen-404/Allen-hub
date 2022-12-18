@@ -54,6 +54,14 @@ public class ShellExplosion : MonoBehaviour
             if (colliders[i].transform == host)
                 continue;
 
+            var landMine = colliders[i].transform.GetComponent<LandMineBehaviour>();
+            if (landMine != null)
+            {
+                landMine.ExplodeWithDelay(0.25f);
+                willDestroy = true;
+                break;
+            }
+
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
 
             if (!targetRigidbody)
@@ -71,7 +79,7 @@ public class ShellExplosion : MonoBehaviour
                 else if ((tank.identifier == TankIdentifier.Player && harmPlayer) || (tank.identifier == TankIdentifier.Enemy && harmEnemy))
                 {
                     willDestroy = true;
-                    tank.health.TakeDamage(damage, origin);
+                    tank.health.TakeDamage(damage, origin, this);
                     targetRigidbody.AddExplosionForce(m_ExplosionForce, transform.position, m_ExplosionRadius);
                 }
             }

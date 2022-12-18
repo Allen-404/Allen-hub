@@ -8,9 +8,12 @@ public class CombatSystem : MonoBehaviour
     public static CombatSystem instance;
 
     public GameObject vfx_constructionExplode;
-
+    public GameObject vfx_mineExplode;
     public CanvasGroup cg_starting;
     public CanvasGroup cg_gameOver;
+
+    public GameObject minePrefab;
+
     private void Awake()
     {
         instance = this;
