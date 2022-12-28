@@ -35,12 +35,8 @@ public class TankMovement : MonoBehaviour
 
     private void Start()
     {
-        m_MovementAxisName = "Vertical" + m_PlayerNumber;
-        m_TurnAxisName = "Horizontal" + m_PlayerNumber;
-
         m_OriginalPitch = m_MovementAudio.pitch;
     }
-
 
     private void Update()
     {
@@ -49,8 +45,8 @@ public class TankMovement : MonoBehaviour
             return;
         if (host.IsDead())
             return;
-        m_MovementInputValue = Input.GetAxis(m_MovementAxisName);
-        m_TurnInputValue = Input.GetAxis(m_TurnAxisName);
+        m_MovementInputValue = Input.GetAxis("Vertical");
+        m_TurnInputValue = Input.GetAxis("Horizontal");
 
         EngineAudio();
     }
