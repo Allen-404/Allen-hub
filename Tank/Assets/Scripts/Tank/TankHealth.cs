@@ -36,6 +36,16 @@ public class TankHealth : MonoBehaviour
         SetHealthUI();
     }
 
+    public void Heal(float hpToRestore)
+    {
+        m_CurrentHealth += hpToRestore;
+        if (m_CurrentHealth > m_StartingHealth)
+        {
+            m_CurrentHealth = m_StartingHealth;
+        }
+
+        SetHealthUI();
+    }
 
     public virtual void TakeDamage(float amount, Tank origin, ShellExplosion shell = null)
     {
@@ -64,7 +74,7 @@ public class TankHealth : MonoBehaviour
         // Play the effects for the death of the tank and deactivate it.
         m_Dead = true;
 
-        m_ExplosionParticles.transform.position = transform.position+Vector3.up*0.6f;
+        m_ExplosionParticles.transform.position = transform.position + Vector3.up * 0.6f;
         m_ExplosionParticles.gameObject.SetActive(true);
 
         m_ExplosionParticles.Play();
