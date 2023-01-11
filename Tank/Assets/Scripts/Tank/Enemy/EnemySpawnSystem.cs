@@ -3,13 +3,20 @@ using System.Collections.Generic;
 
 public class EnemySpawnSystem : MonoBehaviour
 {
+    public static EnemySpawnSystem instance;
+
     public List<EnemySpawnInfo> spawnInfos;
 
     float _nextSpawnTimestamp;
     int _index;
     bool _isSpawning;
 
-   public  List<EnemyTank> enemies { get; private set; }
+    public List<EnemyTank> enemies { get; private set; }
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {

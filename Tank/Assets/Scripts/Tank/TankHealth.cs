@@ -49,7 +49,6 @@ public class TankHealth : MonoBehaviour
 
     public virtual void TakeDamage(float amount, Tank origin, ShellExplosion shell = null)
     {
-        // Adjust the tank's current health, update the UI based on the new health and check whether or not the tank is dead.
         m_CurrentHealth -= amount;
 
         SetHealthUI();
@@ -84,6 +83,7 @@ public class TankHealth : MonoBehaviour
         //EnemyAttackChecker.CheckAllCheckers();
         //CheckWinSystem.instance.Check();
         dieIntoParts?.Die();
+        Destroy(m_ExplosionParticles.gameObject, 2);
         Destroy(gameObject);
     }
 

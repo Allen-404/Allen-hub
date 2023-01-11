@@ -14,6 +14,10 @@ public class EnemyShooting : MonoBehaviour
 
     private void Update()
     {
+        if (com.GameTime.timeScale == 0)
+        {
+            return;
+        }
         if (host.attackChecker.hasTargetInSight)
         {
             TryAttack();

@@ -32,7 +32,7 @@ public class DieIntoPartsBehaviour : MonoBehaviour
             var t = Random.Range(-500, 500);
             rb.AddTorque(new Vector3(t, t, t));
         }
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(2.4f);
         foreach (var col in parts)
         {
             col.transform.DOScale(0, 1f).OnComplete(() => { Destroy(col.gameObject); });

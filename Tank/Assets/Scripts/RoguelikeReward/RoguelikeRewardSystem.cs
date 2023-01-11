@@ -42,7 +42,7 @@ namespace RoguelikeCombat
 
         public void AddPerk(RoguelikeIdentifier id)
         {
-            Debug.Log("add perk: " + id);
+            Debug.LogWarning("add perk: " + id);
             perks.Add(id);
         }
 
@@ -108,13 +108,13 @@ namespace RoguelikeCombat
                     continue;//排除等级不够的
                 if (reward.basePerkId != RoguelikeIdentifier.None && perks.IndexOf(reward.basePerkId) < 0)
                     continue;   //排除没有拿到前置的
-
+                //Debug.Log("可选：" + reward.id);
                 candidatePool.Add(reward.id);
             }
 
             for (int i = 0; i < poolSize; i++)
             {
-                var randomIndex = Random.Range(0, candidatePool.Count - 1);
+                var randomIndex = Random.Range(0, candidatePool.Count);
                 pool.Add(candidatePool[randomIndex]);
                 candidatePool.RemoveAt(randomIndex);
             }
