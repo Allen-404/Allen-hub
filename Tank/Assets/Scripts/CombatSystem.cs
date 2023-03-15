@@ -11,6 +11,7 @@ public class CombatSystem : MonoBehaviour
     public GameObject vfx_mineExplode;
     public CanvasGroup cg_starting;
     public CanvasGroup cg_gameOver;
+    public CanvasGroup cg_win;
 
     public GameObject minePrefab;
 
