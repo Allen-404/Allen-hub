@@ -24,14 +24,26 @@ public class PlayerMove : MonoBehaviour
         _animator = GetComponent<Animator>();
         _playerInteract = GetComponent<PlayerInteract>();
 
+        CancelInput();
+    }
+
+    void CancelInput()
+    {
+        _upKey = false;
+        _downKey = false;
+        _leftKey = false;
+        _rightKey = false;
     }
 
     void Update()
     {
         _moveDirection = Vector2.zero;
 
-        if (_playerInteract.isPickingUp)
+        if (_playerInteract.isInteracting)
+        {
+            CancelInput();
             return;
+        }
 
         if (Input.GetKeyDown(KeyCode.W))
             _upKey = true;
@@ -50,7 +62,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D))
             _rightKey = false;
 
-       
+
         if (_upKey)
             _moveDirection.y += 1;
         if (_downKey)
@@ -63,13 +75,13 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var dir = _moveDirection * speed;
+        var dir = _moveDirection.normalized * speed;
         var finalDir = new Vector3(dir.x, _rb.velocity.y, dir.y);
         _rb.velocity = finalDir;
 
         if (finalDir.magnitude > 0.01f)
         {
-            rotatePart.forward = finalDir;
+            rotatePart.forward = Vector3.Lerp(rotatePart.forward, finalDir, 0.1f);
             _animator.SetBool("walking", true);
         }
         else
