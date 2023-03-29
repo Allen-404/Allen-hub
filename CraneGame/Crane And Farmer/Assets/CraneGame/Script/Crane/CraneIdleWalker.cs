@@ -10,21 +10,26 @@ public class CraneIdleWalker : MonoBehaviour
     public float nextWalkTimeMin = 6;
     public float nextWalkTimeMax = 10;
     float _nextWalkTime;
+    [SerializeField]
     CraneMover _mover;
 
     private void Start()
     {
-        _mover = GetComponent<CraneMover>();
         _nextWalkTime = 3;
     }
 
     void SetNewDestination()
     {
-        Transform newDestination;
+        Transform newDestination = null;
 
-        do { newDestination = GetRandomDestination(); }
-        while (newDestination != crtDestination);
-
+        int safeTime = 40;
+        do
+        {
+            newDestination = GetRandomDestination();
+            safeTime--;
+        }
+        while ((newDestination == null || newDestination == crtDestination) && safeTime > 0);
+        crtDestination = newDestination;
         _nextWalkTime = Random.Range(nextWalkTimeMin, nextWalkTimeMax);
         _mover.SetDest(crtDestination.transform.position);
     }
