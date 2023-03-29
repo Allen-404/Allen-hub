@@ -6,9 +6,11 @@ public class CraneMover : MonoBehaviour
 {
     public NavMeshAgent nma;
     public Animator animator;
+    Vector3 _targetPos;
 
     public void SetDest(Vector3 pos)
     {
+        _targetPos = pos;
         nma.SetDestination(pos);
         ToggleWalk(true);
     }
@@ -20,7 +22,9 @@ public class CraneMover : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (nma.pathStatus == NavMeshPathStatus.PathComplete)
+        var dist = _targetPos - transform.position;
+        dist.y = 0;
+        if (dist.magnitude < 0.5f)
         {
             ToggleWalk(false);
         }

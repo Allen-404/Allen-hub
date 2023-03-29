@@ -5,6 +5,8 @@ public class PlayerPickBucket : MonoBehaviour
 {
     public Collider col;
     public BucketBehaviour bucketInHand;
+    public AudioSource sfxPickup;
+    public AudioSource sfxDrop;
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerPickBucket : MonoBehaviour
             bucket.OnPicked();
             bucketInHand = bucket;
             col.enabled = false;
+            sfxPickup.Play();
             return;
         }
 
@@ -30,6 +33,7 @@ public class PlayerPickBucket : MonoBehaviour
             bucketInHand.OnDroped();
             bucketInHand = null;
             col.enabled = false;
+            sfxDrop.Play();
         }
     }
 
