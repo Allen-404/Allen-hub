@@ -10,5 +10,19 @@ public class CraneMover : MonoBehaviour
     public void SetDest(Vector3 pos)
     {
         nma.SetDestination(pos);
+        ToggleWalk(true);
+    }
+
+    void ToggleWalk(bool b)
+    {
+        animator.SetBool("walk", b);
+    }
+
+    private void FixedUpdate()
+    {
+        if (nma.pathStatus == NavMeshPathStatus.PathComplete)
+        {
+            ToggleWalk(false);
+        }
     }
 }
