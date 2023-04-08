@@ -5,6 +5,7 @@ public class PlayerOperateWell : MonoBehaviour
 {
     public Collider col;
     public PlayerPickBucket pickBucket;
+    public AudioSource sfxOperateWell;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerOperateWell : MonoBehaviour
             if (pickBucket.bucketInHand!=null)
             {
                 pickBucket.bucketInHand.OnFullfilled();
+                sfxOperateWell.Play();
             }
 
             col.enabled = false;
