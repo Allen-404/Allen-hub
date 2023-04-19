@@ -6,6 +6,7 @@ public class CraneMover : MonoBehaviour
 {
     public NavMeshAgent nma;
     public Animator animator;
+    public Animator[] animators;
     Vector3 _targetPos;
 
     public void SetDest(Vector3 pos)
@@ -18,6 +19,13 @@ public class CraneMover : MonoBehaviour
     void ToggleWalk(bool b)
     {
         animator.SetBool("walk", b);
+        if (animators != null)
+        {
+            foreach (var a in animators)
+            {
+                a.SetBool("walk", b);
+            }
+        }
     }
 
     private void FixedUpdate()

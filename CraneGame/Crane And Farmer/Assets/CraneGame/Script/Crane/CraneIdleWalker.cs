@@ -13,6 +13,9 @@ public class CraneIdleWalker : MonoBehaviour
     [SerializeField]
     CraneMover _mover;
 
+    public bool useOrderedDestination;
+    int _orderedDestinationIndex;
+
     private void Start()
     {
         _nextWalkTime = 3;
@@ -25,7 +28,7 @@ public class CraneIdleWalker : MonoBehaviour
         int safeTime = 40;
         do
         {
-            newDestination = GetRandomDestination();
+            newDestination = GetDestination();
             safeTime--;
         }
         while ((newDestination == null || newDestination == crtDestination) && safeTime > 0);
@@ -33,10 +36,25 @@ public class CraneIdleWalker : MonoBehaviour
         _nextWalkTime = Random.Range(nextWalkTimeMin, nextWalkTimeMax);
         _mover.SetDest(crtDestination.transform.position);
     }
+    Transform GetDestination()
+    {
+        if (useOrderedDestination)
+            return GetOrderedDestination();
 
+        return GetRandomDestination();
+    }
     Transform GetRandomDestination()
     {
         return destinations[Random.Range(0, destinations.Length)];
+    }
+
+    Transform GetOrderedDestination()
+    {
+        _orderedDestinationIndex++;
+        if (_orderedDestinationIndex >= destinations.Length)
+            _orderedDestinationIndex = 0;
+
+        return destinations[_orderedDestinationIndex];
     }
 
     private void Update()
