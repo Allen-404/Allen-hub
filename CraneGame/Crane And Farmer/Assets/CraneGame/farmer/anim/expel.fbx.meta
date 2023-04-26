@@ -8,6 +8,9 @@ ModelImporter:
     second: Take 001
   - first:
       74: -203655887218126122
+    second: expel
+  - first:
+      74: -203655887218126122
     second: mixamo.com
   externalObjects: {}
   materials:
