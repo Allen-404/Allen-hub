@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: -5985913743723745226}
   - component: {fileID: 6343251658962892594}
   - component: {fileID: 2246330177427229771}
+  - component: {fileID: -401391649000505155}
   m_Layer: 8
   m_Name: PlayerTank
   m_TagString: Untagged
@@ -353,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   host: {fileID: 0}
-  m_StartingHealth: 1500
+  m_StartingHealth: 3000
   m_Slider: {fileID: 371130167}
   m_FillImage: {fileID: 1804268126}
   m_FullHealthColor: {r: 0, g: 1, b: 0, a: 1}
@@ -397,6 +398,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
+--- !u!136 &-401391649000505155
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145156}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.8868473
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.44342363, z: 0}
 --- !u!1 &194292
 GameObject:
   m_ObjectHideFlags: 0

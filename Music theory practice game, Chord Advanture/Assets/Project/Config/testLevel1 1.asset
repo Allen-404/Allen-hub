@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3962f9b85d65141a357bc85dcf245e, type: 3}
   m_Name: testLevel1 1
   m_EditorClassIdentifier: 
-  enemySprite: {fileID: 21300000, guid: a162a55c649c4994eae972656a10c5c4, type: 3}
-  goals: 13000000020000000b0000000300000002000000030000000a000000
+  enemySprite: {fileID: 21300000, guid: b11c80bb3b67cbf4da56c6c49d06ea9a, type: 3}
+  goals: 010000000300000005000000
