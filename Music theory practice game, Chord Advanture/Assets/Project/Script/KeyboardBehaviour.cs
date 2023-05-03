@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class KeyboardBehaviour : MonoBehaviour
 {
+    public static KeyboardBehaviour instance;
+
     public Image key_C;
     public Image key_D;
     public Image key_E;
@@ -19,6 +21,11 @@ public class KeyboardBehaviour : MonoBehaviour
     private bool _isBPressed;
 
     public TMPro.TextMeshProUGUI displayNotes;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void OnPress(int key)
     {
@@ -96,10 +103,21 @@ public class KeyboardBehaviour : MonoBehaviour
         _isBPressed = false;
         prefix.text = "";
         PlayNoteSound(note);
-        AddNoteDisplay(note);
+        GameResultComparer.instance.Add(note);
+        SyncNoteDisplayer();
     }
 
-    void AddNoteDisplay(Note note)
+    void SyncNoteDisplayer()
+    {
+        var notes = GameResultComparer.instance.GetCurrentResult();
+        var res = "";
+        foreach (var n in notes)
+            res += GetNoteString(n);
+
+        displayNotes.text = res;
+    }
+
+    string GetNoteString(Note note)
     {
         var res = "";
         switch (note)
@@ -170,7 +188,7 @@ public class KeyboardBehaviour : MonoBehaviour
                 res = "b<sprite index=1> ";
                 break;
         }
-        displayNotes.text += res;
+        return res;
     }
 
     public static void PlayNoteSound(Note note)
@@ -243,5 +261,17 @@ public class KeyboardBehaviour : MonoBehaviour
                 SoundSystem.instance.Play("B2");
                 break;
         }
+    }
+
+    public void OnPressUndo()
+    {
+        GameResultComparer.instance.Remove();
+        SyncNoteDisplayer();
+    }
+
+    public void Clear()
+    {
+        GameResultComparer.instance.Clear();
+        SyncNoteDisplayer();
     }
 }
