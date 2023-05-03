@@ -15,6 +15,8 @@ public class GameSystem : MonoBehaviour
     public int totalInputAllTime = 10;
 
     public TMPro.TextMeshProUGUI timingTxt;
+    public Image heroImage;
+    public ChooseHeroPageBehaviour chooseHeroPage;
 
     private void Awake()
     {
@@ -24,9 +26,15 @@ public class GameSystem : MonoBehaviour
     private void Start()
     {
         gameView = GetComponent<GameViewBehaviour>();
+        chooseHeroPage.gameObject.SetActive(true);
     }
 
-    public void TestLevel1()
+    public void SetHeroSprite(Sprite sp)
+    {
+        heroImage.sprite = sp;
+    }
+
+    public void StartGame()
     {
         StartNewLevel(levels[0]);
     }
