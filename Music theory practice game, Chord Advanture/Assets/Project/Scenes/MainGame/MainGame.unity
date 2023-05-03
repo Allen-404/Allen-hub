@@ -569,6 +569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 11400000, guid: 3ef5a5cc003bfd04f9d4013c176904a7, type: 2}
+  sfxchord: {fileID: 0}
 --- !u!114 &404485400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,7 +585,7 @@ MonoBehaviour:
   heroImg: {fileID: 727308672}
   enemyImg: {fileID: 819289613}
   enemyEnterFromAnchoredX: 400
-  enemyEnterToAnchoredX: -80
+  enemyEnterToAnchoredX: -120
   enemyEnterDuration: 1.6
   heroEnterFromAnchoredX: -400
   heroEnterToAnchoredX: 80

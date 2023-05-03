@@ -7,6 +7,7 @@ using DG.Tweening;
 public class GameSystem : MonoBehaviour
 {
     public List<GameLevel> levels;
+    public AudioSource sfxchord;
 
     private GameLevel _crtLevel;
     private GameViewBehaviour gameView;
@@ -19,6 +20,7 @@ public class GameSystem : MonoBehaviour
     public void TestLevel1()
     {
         StartNewLevel(levels[0]);
+        sfxchord.Play();
     }
 
     public void StartNewLevel(GameLevel newLevel)
