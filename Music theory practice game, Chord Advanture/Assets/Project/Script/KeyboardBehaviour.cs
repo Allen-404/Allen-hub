@@ -18,6 +18,8 @@ public class KeyboardBehaviour : MonoBehaviour
     private bool _isSharpPressed;
     private bool _isBPressed;
 
+    public TMPro.TextMeshProUGUI displayNotes;
+
     public void OnPress(int key)
     {
         Debug.Log("OnPress " + key);
@@ -93,5 +95,153 @@ public class KeyboardBehaviour : MonoBehaviour
         _isSharpPressed = false;
         _isBPressed = false;
         prefix.text = "";
+        PlayNoteSound(note);
+        AddNoteDisplay(note);
+    }
+
+    void AddNoteDisplay(Note note)
+    {
+        var res = "";
+        switch (note)
+        {
+            case Note.None:
+                break;
+            case Note.C:
+                res = "<sprite index=2> ";
+                break;
+            case Note.D:
+                res = "<sprite index=3> ";
+                break;
+            case Note.E:
+                res = "<sprite index=4> ";
+                break;
+            case Note.F:
+                res = "<sprite index=5> ";
+                break;
+            case Note.G:
+                res = "<sprite index=6> ";
+                break;
+            case Note.A:
+                res = "<sprite index=0> ";
+                break;
+            case Note.B:
+                res = "<sprite index=1> ";
+                break;
+            case Note.C1:
+                res = "#<sprite index=2> ";
+                break;
+            case Note.D1:
+                res = "#<sprite index=3> ";
+                break;
+            case Note.E1:
+                res = "#<sprite index=4> ";
+                break;
+            case Note.F1:
+                res = "#<sprite index=5> ";
+                break;
+            case Note.G1:
+                res = "#<sprite index=6> ";
+                break;
+            case Note.A1:
+                res = "#<sprite index=0> ";
+                break;
+            case Note.B1:
+                res = "#<sprite index=1> ";
+                break;
+            case Note.C2:
+                res = "b<sprite index=2> ";
+                break;
+            case Note.D2:
+                res = "b<sprite index=3> ";
+                break;
+            case Note.E2:
+                res = "b<sprite index=4> ";
+                break;
+            case Note.F2:
+                res = "b<sprite index=5> ";
+                break;
+            case Note.G2:
+                res = "b<sprite index=6> ";
+                break;
+            case Note.A2:
+                res = "b<sprite index=0> ";
+                break;
+            case Note.B2:
+                res = "b<sprite index=1> ";
+                break;
+        }
+        displayNotes.text += res;
+    }
+
+    public static void PlayNoteSound(Note note)
+    {
+        switch (note)
+        {
+            case Note.None:
+                break;
+            case Note.C:
+                SoundSystem.instance.Play("C");
+                break;
+            case Note.D:
+                SoundSystem.instance.Play("D");
+                break;
+            case Note.E:
+                SoundSystem.instance.Play("E");
+                break;
+            case Note.F:
+                SoundSystem.instance.Play("F");
+                break;
+            case Note.G:
+                SoundSystem.instance.Play("G");
+                break;
+            case Note.A:
+                SoundSystem.instance.Play("A");
+                break;
+            case Note.B:
+                SoundSystem.instance.Play("B");
+                break;
+            case Note.C1:
+                SoundSystem.instance.Play("C1");
+                break;
+            case Note.D1:
+                SoundSystem.instance.Play("D1");
+                break;
+            case Note.E1:
+                SoundSystem.instance.Play("E1");
+                break;
+            case Note.F1:
+                SoundSystem.instance.Play("F1");
+                break;
+            case Note.G1:
+                SoundSystem.instance.Play("G1");
+                break;
+            case Note.A1:
+                SoundSystem.instance.Play("A1");
+                break;
+            case Note.B1:
+                SoundSystem.instance.Play("B1");
+                break;
+            case Note.C2:
+                SoundSystem.instance.Play("C2");
+                break;
+            case Note.D2:
+                SoundSystem.instance.Play("D2");
+                break;
+            case Note.E2:
+                SoundSystem.instance.Play("E2");
+                break;
+            case Note.F2:
+                SoundSystem.instance.Play("F2");
+                break;
+            case Note.G2:
+                SoundSystem.instance.Play("G2");
+                break;
+            case Note.A2:
+                SoundSystem.instance.Play("A2");
+                break;
+            case Note.B2:
+                SoundSystem.instance.Play("B2");
+                break;
+        }
     }
 }

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a3962f9b85d65141a357bc85dcf245e, type: 3}
-  m_Name: testLevel1 1
+  m_Name: testLevel1 2
   m_EditorClassIdentifier: 
   enemySprite: {fileID: 21300000, guid: b11c80bb3b67cbf4da56c6c49d06ea9a, type: 3}
-  goals: 0500000004000000030000000500000004000000030000000400000005000000
-  interval: 0.5
+  goals: 01000000020000000300000004000000050000000600000007000000
+  interval: 0.1

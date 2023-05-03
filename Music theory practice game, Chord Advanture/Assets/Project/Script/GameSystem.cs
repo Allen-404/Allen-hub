@@ -7,8 +7,6 @@ using DG.Tweening;
 public class GameSystem : MonoBehaviour
 {
     public List<GameLevel> levels;
-    public AudioSource sfxchord;
-
     private GameLevel _crtLevel;
     private GameViewBehaviour gameView;
 
@@ -20,7 +18,6 @@ public class GameSystem : MonoBehaviour
     public void TestLevel1()
     {
         StartNewLevel(levels[0]);
-        sfxchord.Play();
     }
 
     public void StartNewLevel(GameLevel newLevel)
@@ -43,5 +40,14 @@ public class GameSystem : MonoBehaviour
         gameView.heroImg.DOAnchorPosX(gameView.heroEnterToAnchoredX, gameView.heroEnterDuration).SetEase(Ease.OutCubic);
         yield return new WaitForSeconds(gameView.enemyShowDelay);
         gameView.enemyImg.DOAnchorPosX(gameView.enemyEnterToAnchoredX, gameView.enemyEnterDuration).SetEase(Ease.OutBack);
+
+
+        yield return new WaitForSeconds(1.0f);
+        //PlayLevelSfxs//播放本关的怪物的声音
+        foreach (var goal in _crtLevel.goals)
+        {
+            KeyboardBehaviour.PlayNoteSound(goal);
+            yield return new WaitForSeconds(_crtLevel.interval);
+        }
     }
 }
