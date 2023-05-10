@@ -498,14 +498,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7c2eb79598e56ad4cab8d76dca50f463, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -772,7 +772,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -820,7 +820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHeroSprite: {fileID: 0}
-  lore: He is a music fan, he like to drink apple juicy
+  lore: This is Alexander. He is a music priest, he likes to drink wine.
 --- !u!1 &320809249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2519,7 +2519,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: He is a music fan, he like to drink coconut juicy
+  m_text: This is Alexander. He is a music priest, he likes to drink wine.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 851ccc872a693fe4c8840fac1c07dd53, type: 2}
   m_sharedMaterial: {fileID: 6264412868866367285, guid: 851ccc872a693fe4c8840fac1c07dd53, type: 2}
@@ -2528,8 +2528,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4285295724
+  m_fontColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2696,7 +2696,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2744,7 +2744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHeroSprite: {fileID: 0}
-  lore: He is a music fan, he like to drink coconut juicy
+  lore: This is Roger. He is a music Guardian, he likes to drink apple juice.
 --- !u!1 &890170903
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,7 +3114,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3162,7 +3162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHeroSprite: {fileID: 0}
-  lore: He is a music fan, he like to drink pinapple juicy
+  lore: This is Ellie. She is a music elven, she likes to drink blueberry juice.
 --- !u!1 &972820985
 GameObject:
   m_ObjectHideFlags: 0
@@ -3397,8 +3397,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 33.699997, y: -12.65}
-  m_SizeDelta: {x: 962.2, y: 591.6}
+  m_AnchoredPosition: {x: 30.270004, y: -3.369995}
+  m_SizeDelta: {x: 550, y: 590}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1057253124
 MonoBehaviour:
@@ -3673,7 +3673,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3721,7 +3721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHeroSprite: {fileID: 0}
-  lore: He is a music fan, he like to drink orange juicy
+  lore: This is Sam. He is a music warrior, he likes to drink beer.
 --- !u!1 &1282234924
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,7 +4040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8307089676237188055, guid: fe4e8f671ac052547a23ede4430a040c, type: 3}
+  m_Sprite: {fileID: 759425505048146502, guid: ba73749fc9e96af4986fc1ea44117d05, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4449,8 +4449,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -35}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchoredPosition: {x: -16.84, y: 7.1900024}
+  m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1425396438
 MonoBehaviour:
@@ -4472,7 +4472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7676a917c8c1f464a942e7827f11c972, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 567cc54cd8b48bf4aa36bc6dff0f7441, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4808,35 +4808,35 @@ MonoBehaviour:
   - tag: '#'
     siList:
     - name: C1
-      ac: {fileID: 8300000, guid: 57ea8b36d1efa4f4fa9eb67309b8398b, type: 3}
+      ac: {fileID: 8300000, guid: b783eb0c7a3f8b2469f7330a1e6c6a90, type: 3}
     - name: D1
-      ac: {fileID: 8300000, guid: 7f4341a9bbadc7747a4797d55a40202f, type: 3}
+      ac: {fileID: 8300000, guid: fe46ccb65f0629644a793948ba135a08, type: 3}
     - name: E1
-      ac: {fileID: 8300000, guid: 68852285080259244818d59e49d38a13, type: 3}
+      ac: {fileID: 8300000, guid: 2649c559840905e408cff49b57077050, type: 3}
     - name: F1
       ac: {fileID: 8300000, guid: 0dc55139a7200a744841f07c2fdd21c3, type: 3}
     - name: G1
-      ac: {fileID: 8300000, guid: c6ac011db3687114ab7972569ec8e054, type: 3}
+      ac: {fileID: 8300000, guid: b7c3fb018d831104db0b9a0f27d41f62, type: 3}
     - name: A1
-      ac: {fileID: 8300000, guid: 0e603c70e45fc1c4687b0d05f8d4bb5a, type: 3}
-    - name: B1
       ac: {fileID: 8300000, guid: 92f3079c06e49584c94608c3fe125fef, type: 3}
+    - name: B1
+      ac: {fileID: 8300000, guid: 57ea8b36d1efa4f4fa9eb67309b8398b, type: 3}
   - tag: b
     siList:
     - name: C2
-      ac: {fileID: 8300000, guid: fe46ccb65f0629644a793948ba135a08, type: 3}
+      ac: {fileID: 8300000, guid: 92f3079c06e49584c94608c3fe125fef, type: 3}
     - name: D2
-      ac: {fileID: 8300000, guid: 93afa8aebeaf88f4d841f5bdb23f640d, type: 3}
+      ac: {fileID: 8300000, guid: b783eb0c7a3f8b2469f7330a1e6c6a90, type: 3}
     - name: E2
-      ac: {fileID: 8300000, guid: 0dc55139a7200a744841f07c2fdd21c3, type: 3}
+      ac: {fileID: 8300000, guid: fe46ccb65f0629644a793948ba135a08, type: 3}
     - name: F2
-      ac: {fileID: 8300000, guid: b7c3fb018d831104db0b9a0f27d41f62, type: 3}
+      ac: {fileID: 8300000, guid: 68852285080259244818d59e49d38a13, type: 3}
     - name: G2
-      ac: {fileID: 8300000, guid: e35f2bdb249c82f41a0fa2bbaf8de151, type: 3}
+      ac: {fileID: 8300000, guid: 0dc55139a7200a744841f07c2fdd21c3, type: 3}
     - name: A2
-      ac: {fileID: 8300000, guid: 57ea8b36d1efa4f4fa9eb67309b8398b, type: 3}
+      ac: {fileID: 8300000, guid: b7c3fb018d831104db0b9a0f27d41f62, type: 3}
     - name: B2
-      ac: {fileID: 8300000, guid: 7f4341a9bbadc7747a4797d55a40202f, type: 3}
+      ac: {fileID: 8300000, guid: 505fe109da8621f4da3a1cab87dabc17, type: 3}
 --- !u!4 &1684466638
 Transform:
   m_ObjectHideFlags: 0
@@ -4966,8 +4966,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 380.24, y: 450}
+  m_AnchoredPosition: {x: -20.72, y: -17.589996}
+  m_SizeDelta: {x: 300, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1796308242
 MonoBehaviour:
@@ -4989,7 +4989,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3e76c79b259749243969874b6ff449cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8888f417443f05e449eb6b1ebdc315ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5848,8 +5848,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10, y: -35}
-  m_SizeDelta: {x: 300, y: 450}
+  m_AnchoredPosition: {x: 23.059998, y: -13.43}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2019902200
 MonoBehaviour:
@@ -5871,7 +5871,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b177d42acd00ab344998e0c6da227c6e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 39ebadab6c82cfa4bbcd9b2a29fd6be1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5924,8 +5924,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -39.4}
-  m_SizeDelta: {x: 309.24, y: 450}
+  m_AnchoredPosition: {x: 22.270004, y: -11.89}
+  m_SizeDelta: {x: 350, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2020948394
 MonoBehaviour:
@@ -5947,7 +5947,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b612b79f195b6e041879c4df233633fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56b9004845069644e960a3e9657c41e0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6276,7 +6276,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -6324,4 +6324,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myHeroSprite: {fileID: 0}
-  lore: He is a music fan, he like to drink wine
+  lore: This is Merlin. He is a magical musician, he likes Arthur.
