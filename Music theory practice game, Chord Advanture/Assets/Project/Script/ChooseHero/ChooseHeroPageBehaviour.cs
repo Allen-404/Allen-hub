@@ -25,6 +25,6 @@ public class ChooseHeroPageBehaviour : MonoBehaviour
     public void OnClickConfirm()
     {
         this.gameObject.SetActive(false);
-        GameSystem.instance.StartGame();
+        GameSystem.instance.PrepareGame();
     }
 }

@@ -9,7 +9,4 @@ public enum GameState
     Input_All,
     Validation,
     ShowResult,
-    Sub_Listen_1Note,
-    Sub_Input_1Note,
-    Sub_Validation_1Note,
 }

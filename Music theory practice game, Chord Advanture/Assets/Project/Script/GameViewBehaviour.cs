@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+using TMPro;
 public class GameViewBehaviour : MonoBehaviour
 {
     public RectTransform heroImg;
@@ -17,5 +17,11 @@ public class GameViewBehaviour : MonoBehaviour
 
     public float heroBaseAnchoredY = 0;
     public float heroJumpAnchoredY = 110;
+    public float enemyBaseAnchoredY = 0;
+    public float enemyJumpAnchoredY = 110;
     public ParticleSystem enemyShoutVfx;
+    public CanvasGroup totalFailureView;
+    public CanvasGroup descView;
+    public TextMeshProUGUI descTxt;
+    public GameObject readyView;
 }

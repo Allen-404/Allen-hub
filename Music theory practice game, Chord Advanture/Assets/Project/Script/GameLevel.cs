@@ -8,4 +8,6 @@ public class GameLevel : ScriptableObject
     public Note[] goals;
     public float interval = 1f;
     public int totalTime = 15;
+    [Multiline]
+    public string desc;
 }

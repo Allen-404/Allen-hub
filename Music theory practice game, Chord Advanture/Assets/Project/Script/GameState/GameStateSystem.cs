@@ -27,19 +27,9 @@ public class GameStateSystem : MonoBehaviour
                 break;
             case GameState.Input_All:
                 break;
-            case GameState.Validation:
+            case GameState.Validation://slow learn
                 break;
             case GameState.ShowResult:
-                //TODO
-                break;
-            case GameState.Sub_Listen_1Note:
-                StartState(GameState.Sub_Input_1Note);
-                break;
-            case GameState.Sub_Input_1Note:
-                StartState(GameState.Sub_Validation_1Note);
-                break;
-            case GameState.Sub_Validation_1Note:
-                //TODO
                 break;
         }
     }
@@ -63,12 +53,6 @@ public class GameStateSystem : MonoBehaviour
             case GameState.Validation:
                 break;
             case GameState.ShowResult:
-                break;
-            case GameState.Sub_Listen_1Note:
-                break;
-            case GameState.Sub_Input_1Note:
-                break;
-            case GameState.Sub_Validation_1Note:
                 break;
         }
     }

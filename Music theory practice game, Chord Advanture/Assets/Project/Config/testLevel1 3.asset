@@ -15,3 +15,9 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: d07eb4c0c5d401949ba795b97e83b025, type: 3}
   goals: 020000000b00000006000000
   interval: 0
+  totalTime: 6
+  desc: 'Note C is very good,
+
+    Note C is very good,
+
+    Note C is very good'

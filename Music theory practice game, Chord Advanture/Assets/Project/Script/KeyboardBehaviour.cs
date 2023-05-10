@@ -126,10 +126,25 @@ public class KeyboardBehaviour : MonoBehaviour
     void CheckResult()
     {
         var crtState = GameStateSystem.instance.state;
+        var notes = GameResultComparer.instance.GetCurrentResult();
+
+        if (crtState == GameState.Validation)
+        {
+            var crtNote = notes[0];
+            if (crtNote == GameSystem.instance.tempSlowLearnNote)
+            {
+                GameSystem.instance.tempSlowLearnPause = false;
+            }
+            else
+            {
+                GameSystem.instance.TotalFailure();
+            }
+            return;
+        }
+
         if (crtState != GameState.Input_All)
             return;
 
-        var notes = GameResultComparer.instance.GetCurrentResult();
         var targetNotes = GameSystem.instance.GetCrtLevel().goals;
         bool res = true;//matched
         if (notes.Length != targetNotes.Length)

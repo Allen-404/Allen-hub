@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameSystem : MonoBehaviour
 {
@@ -26,9 +27,13 @@ public class GameSystem : MonoBehaviour
 
     private void Start()
     {
+        tempSlowLearnNote = Note.None;
+        tempSlowLearnPause = false;
         gameView = GetComponent<GameViewBehaviour>();
         chooseHeroPage.gameObject.SetActive(true);
         originalTimingTxtScale = timingTxt.transform.localScale.x;
+        gameView.descView.alpha = 0;
+        gameView.DOKill();
     }
 
     public void SetHeroSprite(Sprite sp)
@@ -36,8 +41,15 @@ public class GameSystem : MonoBehaviour
         heroImage.sprite = sp;
     }
 
+    public void PrepareGame()
+    {
+        gameView.readyView.SetActive(true);
+        PopText("");
+    }
+
     public void StartGame()
     {
+        gameView.readyView.SetActive(false);
         StartLevel(0);
     }
 
@@ -69,6 +81,11 @@ public class GameSystem : MonoBehaviour
             Debug.LogWarning("no this level， index=" + index);
             return;
         }
+        tempSlowLearnNote = Note.None;
+        tempSlowLearnPause = false;
+        gameView.descView.alpha = 0;
+        gameView.DOKill();
+
         Debug.LogWarning("StartLevel index=" + index);
         timingTxt.text = "";
         _crtLevel = newLevel;
@@ -100,17 +117,21 @@ public class GameSystem : MonoBehaviour
         newPos1.x = gameView.heroEnterFromAnchoredX;
         gameView.heroImg.anchoredPosition = newPos1;
 
+        gameView.heroImg.localRotation = Quaternion.identity;
         gameView.enemyImg.localRotation = Quaternion.identity;
+
         var newPos2 = gameView.enemyImg.anchoredPosition;
         newPos2.x = gameView.enemyEnterFromAnchoredX;
         gameView.enemyImg.anchoredPosition = newPos2;
 
         gameView.heroImg.DOAnchorPosX(gameView.heroEnterToAnchoredX, gameView.heroEnterDuration).SetEase(Ease.OutCubic);
         yield return new WaitForSeconds(gameView.enemyShowDelay);
+        SoundSystem.instance.Play("showup");
         gameView.enemyImg.DOAnchorPosX(gameView.enemyEnterToAnchoredX, gameView.enemyEnterDuration).SetEase(Ease.OutBack);
 
         yield return new WaitForSeconds(0.4f);
         PopText("Enter the notes!");
+
         yield return new WaitForSeconds(0.8f);
         GameStateSystem.instance.GoNextState();
     }
@@ -152,6 +173,7 @@ public class GameSystem : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             _restTime -= 1;
+            if (_restTime < 0) _restTime = 0;
             PopText(Mathf.FloorToInt(_restTime) + "");
         }
 
@@ -165,7 +187,7 @@ public class GameSystem : MonoBehaviour
         {
             //do nothing because already win!
         }
-        
+
     }
 
     IEnumerator Sequence_ShowResult_Win()
@@ -196,19 +218,83 @@ public class GameSystem : MonoBehaviour
 
     IEnumerator Sequence_ShowResult_Loose()
     {
+        gameView.heroImg.DOShakePosition(1.0f, 35.0f, 8).OnComplete(
+            () =>
+            {
+                gameView.heroImg.DOLocalRotate(new Vector3(0, 0, 90), 0.7f);
+                gameView.enemyImg.DOAnchorPosY(gameView.enemyJumpAnchoredY, 0.35f).SetEase(Ease.OutCubic).OnComplete(
+                    () => { gameView.enemyImg.DOAnchorPosY(gameView.enemyBaseAnchoredY, 0.35f).SetEase(Ease.InCubic); }
+                    );
+
+            });
+
         SoundSystem.instance.Play("loose");
+        yield return new WaitForSeconds(1.75f);
+        gameView.enemyImg.DOKill();
+        gameView.enemyImg.DOAnchorPosY(gameView.enemyJumpAnchoredY, 0.35f).SetEase(Ease.OutCubic).OnComplete(
+                   () => { gameView.enemyImg.DOAnchorPosY(gameView.enemyBaseAnchoredY, 0.35f).SetEase(Ease.InCubic); }
+                   );
         yield return new WaitForSeconds(1.0f);
-    }
-    IEnumerator Sequence_Sub_Listen_1Note()
-    {
-        yield return new WaitForSeconds(1.0f);
+
+        GameStateSystem.instance.StartState(GameState.Validation);
+        StartCoroutine(Sequence_SlowLearn());
     }
 
-    IEnumerator Sequence_Sub_Input_1Note()
+    IEnumerator Sequence_SlowLearn()
     {
+        PopText("Now let's learn slowly");
         yield return new WaitForSeconds(1.0f);
+        PopText("Listen!");
+        KeyboardBehaviour.instance.Clear();
+
+        gameView.descTxt.text = _crtLevel.desc;
+        gameView.descView.DOFade(1, 1);
+        //PlayLevelSfxs//播放本关的怪物的声音
+        foreach (var goal in _crtLevel.goals)
+        {
+            yield return new WaitForSeconds(1.0f);
+            KeyboardBehaviour.PlayNoteSound(goal);
+            KeyboardBehaviour.instance.Clear();
+            Debug.Log("monster: " + goal);
+            PlayMonsterFeedback();
+            ///等待无限的时间，直到玩家输对了
+            tempSlowLearnNote = goal;
+            tempSlowLearnPause = true;
+            while (tempSlowLearnPause)
+            {
+                yield return null;
+            }
+
+        }
+        yield return new WaitForSeconds(1.0f);
+        foreach (var goal in _crtLevel.goals)
+        {
+            KeyboardBehaviour.PlayNoteSound(goal);
+        }
+        PopText("You did it!");
+        gameView.descView.DOFade(0, 1);
+        PlayMonsterFeedback();
+        yield return new WaitForSeconds(0.5f);
+        gameView.heroImg.DOLocalRotate(new Vector3(0, 0, 0), 1.5f);
+        yield return new WaitForSeconds(1.5f);
+        Win();
     }
 
+    public void TotalFailure()
+    {
+        SoundSystem.instance.Play("loose");
+        gameView.totalFailureView.DOFade(1, 2);
+        gameView.totalFailureView.blocksRaycasts = true;
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public bool tempSlowLearnPause;
+
+    public Note tempSlowLearnNote { get; private set; }
     public void Win()
     {
         _restTime = 0;
@@ -219,6 +305,9 @@ public class GameSystem : MonoBehaviour
 
     public void Loose()
     {
+        _restTime = 0;
         Debug.LogWarning("Loose!!!");
+        GameStateSystem.instance.StartState(GameState.ShowResult);
+        StartCoroutine(Sequence_ShowResult_Loose());
     }
 }
