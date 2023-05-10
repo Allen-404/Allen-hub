@@ -26,10 +26,8 @@ public class GameStateSystem : MonoBehaviour
                 StartState(GameState.Input_All);
                 break;
             case GameState.Input_All:
-                StartState(GameState.Validation);
                 break;
             case GameState.Validation:
-                StartState(GameState.ShowResult);
                 break;
             case GameState.ShowResult:
                 //TODO

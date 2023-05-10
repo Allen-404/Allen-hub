@@ -12,12 +12,12 @@ public class GameSystem : MonoBehaviour
     private GameLevel _crtLevel;
     private GameViewBehaviour gameView;
     private int _restTime;
-    public int totalInputAllTime = 10;
 
     public TMPro.TextMeshProUGUI timingTxt;
     public Image heroImage;
     public ChooseHeroPageBehaviour chooseHeroPage;
 
+    int crtLevelIndex;
     float originalTimingTxtScale;
     private void Awake()
     {
@@ -38,7 +38,12 @@ public class GameSystem : MonoBehaviour
 
     public void StartGame()
     {
-        StartNewLevel(levels[0]);
+        StartLevel(0);
+    }
+
+    public GameLevel GetCrtLevel()
+    {
+        return _crtLevel;
     }
 
     void PopText(string s)
@@ -50,8 +55,21 @@ public class GameSystem : MonoBehaviour
         timingTxt.transform.DOPunchScale(Vector3.one * originalTimingTxtScale * 1.1f, 0.4f, 4, 0.6f);
     }
 
-    public void StartNewLevel(GameLevel newLevel)
+    public void StartNextLevel()
     {
+        StartLevel(crtLevelIndex + 1);
+    }
+
+    public void StartLevel(int index)
+    {
+        crtLevelIndex = index;
+        var newLevel = levels[crtLevelIndex];
+        if (newLevel == null)
+        {
+            Debug.LogWarning("no this level£¬ index=" + index);
+            return;
+        }
+        Debug.LogWarning("StartLevel index=" + index);
         timingTxt.text = "";
         _crtLevel = newLevel;
         gameView.enemyImg.GetComponent<Image>().sprite = _crtLevel.enemySprite;
@@ -77,11 +95,12 @@ public class GameSystem : MonoBehaviour
     IEnumerator Sequence_ShowUp()
     {
         KeyboardBehaviour.instance.Clear();
-
+        SoundSystem.instance.Play("showup");
         var newPos1 = gameView.heroImg.anchoredPosition;
         newPos1.x = gameView.heroEnterFromAnchoredX;
         gameView.heroImg.anchoredPosition = newPos1;
 
+        gameView.enemyImg.localRotation = Quaternion.identity;
         var newPos2 = gameView.enemyImg.anchoredPosition;
         newPos2.x = gameView.enemyEnterFromAnchoredX;
         gameView.enemyImg.anchoredPosition = newPos2;
@@ -104,6 +123,7 @@ public class GameSystem : MonoBehaviour
         foreach (var goal in _crtLevel.goals)
         {
             KeyboardBehaviour.PlayNoteSound(goal);
+            Debug.Log("monster: " + goal);
             PlayMonsterFeedback();
             if (_crtLevel.interval > 0)
             {
@@ -125,8 +145,8 @@ public class GameSystem : MonoBehaviour
 
     IEnumerator Sequence_Input()
     {
-        KeyboardBehaviour.instance.Clear();
-        _restTime = totalInputAllTime;
+        //KeyboardBehaviour.instance.Clear();
+        _restTime = _crtLevel.totalTime;
         PopText(Mathf.FloorToInt(_restTime) + "");
         while (_restTime > 0)
         {
@@ -134,16 +154,51 @@ public class GameSystem : MonoBehaviour
             _restTime -= 1;
             PopText(Mathf.FloorToInt(_restTime) + "");
         }
-        PopText("Timeup!!!");
-        yield return new WaitForSeconds(1.0f);
-        GameStateSystem.instance.GoNextState();
+
+        if (GameStateSystem.instance.state == GameState.Input_All)
+        {
+            PopText("Timeup!!!");
+            yield return new WaitForSeconds(1.0f);
+            Loose();
+        }
+        else
+        {
+            //do nothing because already win!
+        }
+        
     }
 
-    IEnumerator Sequence_ShowResult()
+    IEnumerator Sequence_ShowResult_Win()
     {
+        //monster shake and upsidedown
+        //player jump
+        //play sound
+        //goto to level nextgameView.enemyImg.DOKill();
+        gameView.enemyImg.DOShakePosition(1.0f, 35.0f, 8).OnComplete(
+            () =>
+            {
+                gameView.enemyImg.DOLocalRotate(new Vector3(0, 0, -90), 0.7f);
+                gameView.heroImg.DOAnchorPosY(gameView.heroJumpAnchoredY, 0.35f).SetEase(Ease.OutCubic).OnComplete(
+                    () => { gameView.heroImg.DOAnchorPosY(gameView.heroBaseAnchoredY, 0.35f).SetEase(Ease.InCubic); }
+                    );
+
+            });
+
+        SoundSystem.instance.Play("win");
+        yield return new WaitForSeconds(1.75f);
+        gameView.heroImg.DOKill();
+        gameView.heroImg.DOAnchorPosY(gameView.heroJumpAnchoredY, 0.35f).SetEase(Ease.OutCubic).OnComplete(
+                   () => { gameView.heroImg.DOAnchorPosY(gameView.heroBaseAnchoredY, 0.35f).SetEase(Ease.InCubic); }
+                   );
         yield return new WaitForSeconds(1.0f);
+        StartNextLevel();
     }
 
+    IEnumerator Sequence_ShowResult_Loose()
+    {
+        SoundSystem.instance.Play("loose");
+        yield return new WaitForSeconds(1.0f);
+    }
     IEnumerator Sequence_Sub_Listen_1Note()
     {
         yield return new WaitForSeconds(1.0f);
@@ -152,5 +207,18 @@ public class GameSystem : MonoBehaviour
     IEnumerator Sequence_Sub_Input_1Note()
     {
         yield return new WaitForSeconds(1.0f);
+    }
+
+    public void Win()
+    {
+        _restTime = 0;
+        Debug.LogWarning("Win!!!");
+        GameStateSystem.instance.StartState(GameState.ShowResult);
+        StartCoroutine(Sequence_ShowResult_Win());
+    }
+
+    public void Loose()
+    {
+        Debug.LogWarning("Loose!!!");
     }
 }

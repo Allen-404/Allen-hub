@@ -7,4 +7,5 @@ public class GameLevel : ScriptableObject
     public Sprite enemySprite;
     public Note[] goals;
     public float interval = 1f;
+    public int totalTime = 15;
 }

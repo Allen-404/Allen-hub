@@ -15,3 +15,4 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: b11c80bb3b67cbf4da56c6c49d06ea9a, type: 3}
   goals: 010000000300000005000000
   interval: 0
+  totalTime: 19

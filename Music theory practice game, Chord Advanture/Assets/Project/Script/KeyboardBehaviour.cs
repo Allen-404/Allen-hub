@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections.Generic;
 
 public class KeyboardBehaviour : MonoBehaviour
 {
@@ -105,6 +107,7 @@ public class KeyboardBehaviour : MonoBehaviour
         PlayNoteSound(note);
         GameResultComparer.instance.Add(note);
         SyncNoteDisplayer();
+        CheckResult();
     }
 
     void SyncNoteDisplayer()
@@ -115,6 +118,37 @@ public class KeyboardBehaviour : MonoBehaviour
             res += GetNoteString(n);
 
         displayNotes.text = res;
+    }
+
+    /// <summary>
+    /// 因为是和弦，所以不考虑顺序，只检测音符的类型
+    /// </summary>
+    void CheckResult()
+    {
+        var crtState = GameStateSystem.instance.state;
+        if (crtState != GameState.Input_All)
+            return;
+
+        var notes = GameResultComparer.instance.GetCurrentResult();
+        var targetNotes = GameSystem.instance.GetCrtLevel().goals;
+        bool res = true;//matched
+        if (notes.Length != targetNotes.Length)
+            res = false;
+        else
+        {
+            List<Note> notesList = notes.ToList();
+            List<Note> targetNotesList = targetNotes.ToList();
+            notesList.Sort();
+            targetNotesList.Sort();
+            for (int i = 0; i < notesList.Count; i++)
+            {
+                if (notesList[i] != targetNotesList[i])
+                    res = false;
+            }
+        }
+
+        if (res)
+            GameSystem.instance.Win();
     }
 
     string GetNoteString(Note note)
