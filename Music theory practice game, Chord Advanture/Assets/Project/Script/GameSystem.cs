@@ -18,6 +18,7 @@ public class GameSystem : MonoBehaviour
     public Image heroImage;
     public ChooseHeroPageBehaviour chooseHeroPage;
 
+    float originalTimingTxtScale;
     private void Awake()
     {
         instance = this;
@@ -27,6 +28,7 @@ public class GameSystem : MonoBehaviour
     {
         gameView = GetComponent<GameViewBehaviour>();
         chooseHeroPage.gameObject.SetActive(true);
+        originalTimingTxtScale = timingTxt.transform.localScale.x;
     }
 
     public void SetHeroSprite(Sprite sp)
@@ -39,6 +41,15 @@ public class GameSystem : MonoBehaviour
         StartNewLevel(levels[0]);
     }
 
+    void PopText(string s)
+    {
+        timingTxt.text = s;
+
+        timingTxt.DOKill();
+        timingTxt.transform.localScale = Vector3.one * originalTimingTxtScale;
+        timingTxt.transform.DOPunchScale(Vector3.one * originalTimingTxtScale * 1.1f, 0.4f, 4, 0.6f);
+    }
+
     public void StartNewLevel(GameLevel newLevel)
     {
         timingTxt.text = "";
@@ -49,7 +60,7 @@ public class GameSystem : MonoBehaviour
 
     public void Start_Showup()
     {
-        timingTxt.text = "";
+        PopText("The monster is shouting out!");
         StartCoroutine(Sequence_ShowUp());
     }
 
@@ -79,8 +90,9 @@ public class GameSystem : MonoBehaviour
         yield return new WaitForSeconds(gameView.enemyShowDelay);
         gameView.enemyImg.DOAnchorPosX(gameView.enemyEnterToAnchoredX, gameView.enemyEnterDuration).SetEase(Ease.OutBack);
 
-        yield return new WaitForSeconds(1);
-
+        yield return new WaitForSeconds(0.4f);
+        PopText("Enter the notes!");
+        yield return new WaitForSeconds(0.8f);
         GameStateSystem.instance.GoNextState();
     }
 
@@ -92,24 +104,37 @@ public class GameSystem : MonoBehaviour
         foreach (var goal in _crtLevel.goals)
         {
             KeyboardBehaviour.PlayNoteSound(goal);
-            yield return new WaitForSeconds(_crtLevel.interval);
+            PlayMonsterFeedback();
+            if (_crtLevel.interval > 0)
+            {
+                yield return new WaitForSeconds(_crtLevel.interval);
+            }
         }
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
         GameStateSystem.instance.GoNextState();
+    }
+
+    void PlayMonsterFeedback()
+    {
+        gameView.enemyImg.DOKill();
+        gameView.enemyImg.DOShakePosition(0.8f, 50.0f, 8);
+
+        gameView.enemyShoutVfx.Stop();
+        gameView.enemyShoutVfx.Play();
     }
 
     IEnumerator Sequence_Input()
     {
         KeyboardBehaviour.instance.Clear();
         _restTime = totalInputAllTime;
-        timingTxt.text = Mathf.FloorToInt(_restTime) + "";
-        while (_restTime>0)
+        PopText(Mathf.FloorToInt(_restTime) + "");
+        while (_restTime > 0)
         {
             yield return new WaitForSeconds(1.0f);
             _restTime -= 1;
-            timingTxt.text = Mathf.FloorToInt(_restTime) + "";
+            PopText(Mathf.FloorToInt(_restTime) + "");
         }
-        timingTxt.text =  "Timeup!!!";
+        PopText("Timeup!!!");
         yield return new WaitForSeconds(1.0f);
         GameStateSystem.instance.GoNextState();
     }

@@ -14,4 +14,6 @@ public class GameViewBehaviour : MonoBehaviour
     public float heroEnterToAnchoredX = 80;
     public float heroEnterDuration = 2;
     public float enemyShowDelay = 0.5f;
+
+    public ParticleSystem enemyShoutVfx;
 }
