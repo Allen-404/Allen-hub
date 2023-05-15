@@ -22,6 +22,8 @@ public class GameViewBehaviour : MonoBehaviour
     public ParticleSystem enemyShoutVfx;
     public CanvasGroup totalFailureView;
     public CanvasGroup descView;
+    public CanvasGroup Levelname;
     public TextMeshProUGUI descTxt;
+    public TextMeshProUGUI LevelnameTxt;
     public GameObject readyView;
 }

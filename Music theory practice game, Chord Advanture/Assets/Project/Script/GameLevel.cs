@@ -10,4 +10,6 @@ public class GameLevel : ScriptableObject
     public int totalTime = 15;
     [Multiline]
     public string desc;
+    [Multiline]
+    public string Level;
 }

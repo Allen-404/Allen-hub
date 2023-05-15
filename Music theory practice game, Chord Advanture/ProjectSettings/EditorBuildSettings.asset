@@ -11,13 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/MainGame/MainGame.unity
     guid: 7ec936e31d0eea04a9da283eee745f4c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Pixel GUI pack/Scenes/Settings_1.unity
     guid: f7314802dff8c614c8ab2d866819b636
-  - enabled: 1
+  - enabled: 0
     path: Assets/Pixel GUI pack/Scenes/Settings_2.unity
     guid: 57dc91512fb74d549bbb1d3e8f08d9cc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Pixel GUI pack/Scenes/Other.unity
     guid: b2c1bec1fd2d8564e865233911f35ea1
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 3668d812ba44c2f4eb28ddaa2f6ae8f0, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9b25574551f865040bd6ddc7ba8b1d4c, type: 2}

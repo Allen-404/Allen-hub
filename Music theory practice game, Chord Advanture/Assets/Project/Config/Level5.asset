@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3962f9b85d65141a357bc85dcf245e, type: 3}
+  m_Name: Level5
+  m_EditorClassIdentifier: 
+  enemySprite: {fileID: 21300000, guid: cc94bfbe97460ab4e915281be3bc838a, type: 3}
+  goals: 01000000030000000500000015000000
+  interval: 0
+  totalTime: 15
+  desc: 'Note C is very good,
+
+    Note C is very good,
+
+    Note C is very good'
+  Level: 'Level 5
+
+    7th Chord'

@@ -33,6 +33,7 @@ public class GameSystem : MonoBehaviour
         chooseHeroPage.gameObject.SetActive(true);
         originalTimingTxtScale = timingTxt.transform.localScale.x;
         gameView.descView.alpha = 0;
+        gameView.Levelname.alpha = 0;
         gameView.DOKill();
     }
 
@@ -84,6 +85,7 @@ public class GameSystem : MonoBehaviour
         tempSlowLearnNote = Note.None;
         tempSlowLearnPause = false;
         gameView.descView.alpha = 0;
+        gameView.Levelname.alpha = 0;
         gameView.DOKill();
 
         Debug.LogWarning("StartLevel index=" + index);
@@ -95,6 +97,9 @@ public class GameSystem : MonoBehaviour
 
     public void Start_Showup()
     {
+        gameView.LevelnameTxt.text = _crtLevel.Level;
+        gameView.Levelname.DOFade(1, 1);
+
         PopText("The monster is shouting out!");
         StartCoroutine(Sequence_ShowUp());
     }
@@ -134,6 +139,8 @@ public class GameSystem : MonoBehaviour
 
         yield return new WaitForSeconds(0.8f);
         GameStateSystem.instance.GoNextState();
+
+        gameView.Levelname.DOFade(0, 1);
     }
 
     IEnumerator Sequence_Listen_All()
@@ -295,6 +302,7 @@ public class GameSystem : MonoBehaviour
     public bool tempSlowLearnPause;
 
     public Note tempSlowLearnNote { get; private set; }
+
     public void Win()
     {
         _restTime = 0;
