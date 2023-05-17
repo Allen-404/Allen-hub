@@ -16,11 +16,8 @@ MonoBehaviour:
   goals: 01000000030000000500000015000000
   interval: 0
   totalTime: 15
-  desc: 'Note C is very good,
-
-    Note C is very good,
-
-    Note C is very good'
+  desc: "A seventh chord is a chord consisting of a triad plus a note forming an
+    interval of a seventh above the chord's root.\r"
   Level: 'Level 5
 
     7th Chord'

@@ -15,12 +15,9 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: bb6d8d18dad392141b5af0030f4e5abc, type: 3}
   goals: 030000000500000007000000
   interval: 0
-  totalTime: 15
-  desc: 'Note C is very good,
-
-    Note C is very good,
-
-    Note C is very good'
+  totalTime: 10
+  desc: A minor chord sounds darker than a major chord but is still considered highly
+    consonant, stable, or as not requiring resolution.
   Level: 'Level 2
 
     Minor Chord'

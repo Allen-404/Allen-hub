@@ -15,12 +15,9 @@ MonoBehaviour:
   enemySprite: {fileID: 21300000, guid: a162a55c649c4994eae972656a10c5c4, type: 3}
   goals: 020000000400000006000000
   interval: 0
-  totalTime: 6
-  desc: 'Note C is very good,
-
-    Note C is very good,
-
-    Note C is very good'
+  totalTime: 15
+  desc: A natural minor scale is a diatonic scale that is built by starting on the
+    sixth degree of its relative major scale.
   Level: 'Level 4
 
-    Major Chord II'
+    Minor Chord II'

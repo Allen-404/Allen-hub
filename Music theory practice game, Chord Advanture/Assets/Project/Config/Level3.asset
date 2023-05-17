@@ -16,11 +16,7 @@ MonoBehaviour:
   goals: 020000000b00000006000000
   interval: 0
   totalTime: 15
-  desc: 'Note C is very good,
-
-    Note C is very good,
-
-    Note C is very good'
+  desc: When a chord comprises only these three notes, it is called a major triad.
   Level: 'Level 3
 
     Major Chord II'
