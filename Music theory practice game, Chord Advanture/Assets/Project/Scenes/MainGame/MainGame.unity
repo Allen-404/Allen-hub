@@ -9222,7 +9222,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 404485399}
         m_TargetAssemblyTypeName: GameSystem, Assembly-CSharp
-        m_MethodName: PrepareGame
+        m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
